@@ -1,0 +1,2704 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Syntaxxed funding and strategic-acquisition operating plan">
+	<meta name="color-scheme" content="light">
+	<title>Syntaxxed funding and strategic-acquisition action plan</title>
+	<style>
+		:root {
+			--navy-950: #07111f;
+			--navy-900: #0b192c;
+			--navy-800: #12243d;
+			--navy-700: #1c3657;
+			--ink: #172033;
+			--muted: #5f6b7c;
+			--line: #dce3ec;
+			--paper: #ffffff;
+			--canvas: #f3f6fa;
+			--teal: #12b89a;
+			--teal-dark: #087f6c;
+			--teal-soft: #e8f8f4;
+			--amber: #f3a712;
+			--amber-soft: #fff6dc;
+			--blue-soft: #edf4ff;
+			--shadow: 0 18px 48px rgba(15, 31, 51, 0.08);
+			--radius: 16px;
+			--sidebar-width: 318px;
+		}
+
+		* { box-sizing: border-box; }
+
+		html {
+			scroll-behavior: smooth;
+			scroll-padding-top: 76px;
+		}
+
+		body {
+			margin: 0;
+			color: var(--ink);
+			background:
+				radial-gradient(circle at 90% 0%, rgba(18, 184, 154, 0.08), transparent 34rem),
+				var(--canvas);
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			font-size: 16px;
+			line-height: 1.72;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		a {
+			color: var(--teal-dark);
+			text-decoration-thickness: 1px;
+			text-underline-offset: 3px;
+		}
+
+		a:hover { color: #055c50; }
+
+		.skip-link {
+			position: fixed;
+			top: 10px;
+			left: 10px;
+			z-index: 1000;
+			padding: 10px 14px;
+			color: white;
+			background: var(--teal-dark);
+			border-radius: 8px;
+			transform: translateY(-150%);
+		}
+
+		.skip-link:focus { transform: translateY(0); }
+
+		.reading-progress {
+			position: fixed;
+			inset: 0 0 auto 0;
+			z-index: 900;
+			height: 4px;
+			background: rgba(18, 184, 154, 0.12);
+		}
+
+		.reading-progress span {
+			display: block;
+			width: 0;
+			height: 100%;
+			background: linear-gradient(90deg, var(--teal), var(--amber));
+		}
+
+		.sidebar {
+			position: fixed;
+			inset: 0 auto 0 0;
+			z-index: 100;
+			width: var(--sidebar-width);
+			padding: 34px 24px 24px;
+			color: #dce7f5;
+			background:
+				linear-gradient(155deg, rgba(18, 184, 154, 0.14), transparent 38%),
+				var(--navy-950);
+			border-right: 1px solid rgba(255, 255, 255, 0.08);
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: #34506f transparent;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 13px;
+			margin-bottom: 26px;
+		}
+
+		.brand-mark {
+			display: grid;
+			width: 44px;
+			height: 44px;
+			place-items: center;
+			color: var(--navy-950);
+			background: linear-gradient(135deg, #45dec3, var(--teal));
+			border-radius: 13px;
+			box-shadow: 0 10px 30px rgba(18, 184, 154, 0.26);
+			font-size: 22px;
+			font-weight: 900;
+		}
+
+		.brand-name {
+			color: white;
+			font-size: 19px;
+			font-weight: 800;
+			letter-spacing: 0.02em;
+		}
+
+		.brand-subtitle {
+			display: block;
+			margin-top: 2px;
+			color: #8fa5bf;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+		}
+
+		.sidebar-label {
+			margin: 22px 8px 10px;
+			color: #7f96b1;
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+		}
+
+		.toc {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+		}
+
+		.toc-link {
+			display: block;
+			padding: 7px 10px;
+			color: #aebfd3;
+			border-left: 2px solid transparent;
+			border-radius: 0 8px 8px 0;
+			font-size: 12px;
+			line-height: 1.35;
+			text-decoration: none;
+			transition: 150ms ease;
+		}
+
+		.toc-link:hover {
+			color: white;
+			background: rgba(255, 255, 255, 0.05);
+		}
+
+		.toc-link.active {
+			color: #62e3cd;
+			background: rgba(18, 184, 154, 0.1);
+			border-left-color: var(--teal);
+		}
+
+		.toc-level-3 {
+			padding-left: 24px;
+			color: #8095ae;
+			font-size: 11px;
+		}
+
+		.sidebar-note {
+			margin-top: 24px;
+			padding: 14px;
+			color: #aebfd3;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.07);
+			border-radius: 12px;
+			font-size: 11px;
+			line-height: 1.5;
+		}
+
+		.page-shell {
+			min-height: 100vh;
+			margin-left: var(--sidebar-width);
+		}
+
+		.toolbar {
+			position: sticky;
+			top: 0;
+			z-index: 80;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 10px;
+			height: 64px;
+			padding: 0 42px;
+			background: rgba(243, 246, 250, 0.88);
+			border-bottom: 1px solid rgba(198, 209, 221, 0.7);
+			backdrop-filter: blur(14px);
+		}
+
+		.toolbar button,
+		.back-to-top {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-height: 38px;
+			padding: 8px 14px;
+			color: var(--navy-800);
+			background: white;
+			border: 1px solid #ced8e4;
+			border-radius: 10px;
+			box-shadow: 0 3px 12px rgba(14, 32, 54, 0.05);
+			font: inherit;
+			font-size: 12px;
+			font-weight: 750;
+			cursor: pointer;
+		}
+
+		.toolbar button:hover,
+		.back-to-top:hover {
+			border-color: var(--teal);
+			color: var(--teal-dark);
+		}
+
+		.menu-button { display: none !important; }
+
+		.document {
+			width: min(100% - 64px, 1080px);
+			margin: 0 auto;
+			padding: 34px 0 100px;
+		}
+
+		.hero {
+			position: relative;
+			overflow: hidden;
+			margin-bottom: 30px;
+			padding: clamp(36px, 6vw, 68px);
+			color: white;
+			background:
+				linear-gradient(145deg, rgba(18, 184, 154, 0.18), transparent 44%),
+				linear-gradient(320deg, rgba(243, 167, 18, 0.12), transparent 34%),
+				var(--navy-900);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 24px;
+			box-shadow: 0 26px 70px rgba(8, 22, 40, 0.18);
+		}
+
+		.hero::after {
+			position: absolute;
+			right: -120px;
+			bottom: -160px;
+			width: 390px;
+			height: 390px;
+			background:
+				linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+			background-size: 28px 28px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 50%;
+			content: "";
+			transform: rotate(14deg);
+		}
+
+		.hero-content {
+			position: relative;
+			z-index: 1;
+			max-width: 800px;
+		}
+
+		.eyebrow {
+			margin: 0 0 16px;
+			color: #67e5d0;
+			font-size: 12px;
+			font-weight: 850;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+		}
+
+		.hero h1 {
+			margin: 0;
+			max-width: 780px;
+			color: white;
+			font-size: clamp(34px, 5.4vw, 64px);
+			line-height: 1.02;
+			letter-spacing: -0.048em;
+		}
+
+		.hero-summary {
+			max-width: 720px;
+			margin: 24px 0 0;
+			color: #bfd0e4;
+			font-size: clamp(16px, 2vw, 20px);
+			line-height: 1.55;
+		}
+
+		.meta-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-top: 28px;
+		}
+
+		.meta-pill {
+			display: inline-flex;
+			padding: 7px 11px;
+			color: #dce8f5;
+			background: rgba(255, 255, 255, 0.07);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 999px;
+			font-size: 11px;
+			font-weight: 650;
+		}
+
+		.snapshot {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 12px;
+			margin: -52px 26px 36px;
+			position: relative;
+			z-index: 3;
+		}
+
+		.snapshot-card {
+			padding: 18px 18px 16px;
+			background: white;
+			border: 1px solid #dfe6ee;
+			border-radius: 14px;
+			box-shadow: var(--shadow);
+		}
+
+		.snapshot-value {
+			display: block;
+			color: var(--navy-900);
+			font-size: 25px;
+			font-weight: 850;
+			line-height: 1;
+			letter-spacing: -0.04em;
+		}
+
+		.snapshot-label {
+			display: block;
+			margin-top: 7px;
+			color: var(--muted);
+			font-size: 10px;
+			font-weight: 750;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+		}
+
+		.content {
+			padding: clamp(24px, 4vw, 56px);
+			background: var(--paper);
+			border: 1px solid #e0e6ee;
+			border-radius: 20px;
+			box-shadow: var(--shadow);
+		}
+
+		.content h2,
+		.content h3 {
+			position: relative;
+			color: var(--navy-900);
+			scroll-margin-top: 84px;
+		}
+
+		.content h2 {
+			margin: 68px 0 22px;
+			padding-top: 22px;
+			border-top: 1px solid var(--line);
+			font-size: clamp(25px, 3vw, 34px);
+			line-height: 1.18;
+			letter-spacing: -0.035em;
+		}
+
+		.content h2:first-child {
+			margin-top: 0;
+			padding-top: 0;
+			border-top: 0;
+		}
+
+		.content h2.stage-heading {
+			padding: 28px 30px;
+			background:
+				linear-gradient(135deg, var(--blue-soft), rgba(232, 248, 244, 0.72));
+			border: 1px solid #d7e5ef;
+			border-radius: 16px;
+		}
+
+		.content h3 {
+			margin: 38px 0 14px;
+			font-size: 20px;
+			line-height: 1.32;
+			letter-spacing: -0.02em;
+		}
+
+		.content p { margin: 0 0 17px; }
+
+		.content strong {
+			color: #102138;
+			font-weight: 780;
+		}
+
+		.content ul,
+		.content ol {
+			margin: 8px 0 22px;
+			padding-left: 24px;
+		}
+
+		.content li { margin: 6px 0; }
+		.content li::marker { color: var(--teal-dark); font-weight: 800; }
+
+		blockquote {
+			margin: 26px 0;
+			padding: 22px 24px;
+			color: #143a35;
+			background: linear-gradient(135deg, var(--teal-soft), #f5fbfa);
+			border: 1px solid #bfe8df;
+			border-left: 5px solid var(--teal);
+			border-radius: 12px;
+			font-size: 18px;
+			font-weight: 650;
+		}
+
+		blockquote p:last-child { margin-bottom: 0; }
+
+		code {
+			padding: 0.14em 0.36em;
+			color: #7b3d00;
+			background: var(--amber-soft);
+			border: 1px solid #f4df9d;
+			border-radius: 5px;
+			font-family: "Cascadia Code", Consolas, monospace;
+			font-size: 0.88em;
+		}
+
+		.table-wrap {
+			width: 100%;
+			margin: 24px 0 32px;
+			overflow-x: auto;
+			background: white;
+			border: 1px solid var(--line);
+			border-radius: 13px;
+			box-shadow: 0 8px 26px rgba(20, 40, 65, 0.05);
+		}
+
+		table {
+			width: 100%;
+			min-width: 700px;
+			border-collapse: collapse;
+			font-size: 13px;
+			line-height: 1.45;
+		}
+
+		th {
+			padding: 13px 14px;
+			color: white;
+			background: var(--navy-800);
+			border-right: 1px solid rgba(255, 255, 255, 0.09);
+			text-align: left;
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		td {
+			padding: 12px 14px;
+			border-top: 1px solid #e7ecf2;
+			vertical-align: top;
+		}
+
+		tbody tr:nth-child(even) { background: #f8fafc; }
+		tbody tr:hover { background: #eff8f6; }
+
+		.content hr {
+			height: 1px;
+			margin: 40px 0;
+			background: var(--line);
+			border: 0;
+		}
+
+		.document-footer {
+			display: flex;
+			justify-content: space-between;
+			gap: 20px;
+			padding: 28px 8px 0;
+			color: var(--muted);
+			font-size: 11px;
+		}
+
+		.back-to-top {
+			position: fixed;
+			right: 24px;
+			bottom: 24px;
+			z-index: 70;
+			width: 42px;
+			height: 42px;
+			padding: 0;
+			border-radius: 50%;
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(8px);
+			transition: 180ms ease;
+		}
+
+		.back-to-top.visible {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+
+		@media (max-width: 1060px) {
+			:root { --sidebar-width: 286px; }
+			.document { width: min(100% - 40px, 980px); }
+			.snapshot { grid-template-columns: repeat(2, 1fr); }
+		}
+
+		@media (max-width: 820px) {
+			.sidebar {
+				width: min(88vw, 330px);
+				transform: translateX(-105%);
+				transition: transform 180ms ease;
+				box-shadow: 18px 0 45px rgba(5, 18, 34, 0.24);
+			}
+
+			body.navigation-open .sidebar { transform: translateX(0); }
+			.page-shell { margin-left: 0; }
+			.toolbar { padding: 0 20px; justify-content: space-between; }
+			.menu-button { display: inline-flex !important; }
+			.document { width: min(100% - 28px, 760px); padding-top: 20px; }
+			.hero { border-radius: 18px; }
+			.snapshot { margin: -32px 14px 28px; }
+			.content { border-radius: 16px; }
+		}
+
+		@media (max-width: 560px) {
+			body { overflow-x: hidden; }
+			.toolbar .button-label { display: none; }
+			.document { width: calc(100% - 20px); }
+			.hero { padding: 34px 24px 48px; }
+			.hero h1 {
+				font-size: clamp(30px, 10vw, 38px);
+				overflow-wrap: anywhere;
+			}
+			.hero-summary { font-size: 16px; }
+			.meta-pill {
+				max-width: 100%;
+				border-radius: 14px;
+				line-height: 1.4;
+				overflow-wrap: anywhere;
+			}
+			.snapshot { grid-template-columns: 1fr 1fr; gap: 8px; }
+			.snapshot-card { min-width: 0; padding: 14px; }
+			.snapshot-value { font-size: 21px; }
+			.content { padding: 24px 20px 38px; }
+			.content,
+			.content h2,
+			.content h3 { overflow-wrap: anywhere; }
+			.content h2 { margin-top: 52px; }
+			.content h2.stage-heading { padding: 22px; }
+			.document-footer { flex-direction: column; }
+		}
+
+		@media print {
+			@page { size: A4; margin: 14mm 13mm 16mm; }
+
+			html { scroll-padding-top: 0; }
+
+			body {
+				color: #111827;
+				background: white;
+				font-size: 9.5pt;
+				line-height: 1.42;
+			}
+
+			.sidebar,
+			.toolbar,
+			.reading-progress,
+			.back-to-top,
+			.skip-link { display: none !important; }
+
+			.page-shell { margin: 0; }
+
+			.document {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+			.hero {
+				min-height: 230mm;
+				margin: 0;
+				padding: 32mm 22mm;
+				background: var(--navy-900) !important;
+				border: 0;
+				border-radius: 0;
+				box-shadow: none;
+				break-after: page;
+				print-color-adjust: exact;
+				-webkit-print-color-adjust: exact;
+			}
+
+			.hero h1 { font-size: 34pt; }
+			.hero-summary { font-size: 14pt; }
+			.snapshot { display: none; }
+
+			.content {
+				padding: 0;
+				border: 0;
+				border-radius: 0;
+				box-shadow: none;
+			}
+
+			.content h2 {
+				margin: 12mm 0 5mm;
+				padding-top: 5mm;
+				font-size: 19pt;
+				break-after: avoid-page;
+			}
+
+			.content h2.stage-heading {
+				padding: 6mm;
+				background: #eef4f7 !important;
+				print-color-adjust: exact;
+				-webkit-print-color-adjust: exact;
+			}
+
+			.content h3 {
+				margin: 8mm 0 3mm;
+				font-size: 13pt;
+				break-after: avoid-page;
+			}
+
+			blockquote {
+				background: #effaf7 !important;
+				print-color-adjust: exact;
+				-webkit-print-color-adjust: exact;
+			}
+
+			.table-wrap {
+				overflow: visible;
+				box-shadow: none;
+				break-inside: auto;
+			}
+
+			table {
+				min-width: 0;
+				font-size: 6.8pt;
+				line-height: 1.25;
+			}
+
+			th,
+			td { padding: 2mm 2.2mm; }
+			th {
+				background: #173252 !important;
+				print-color-adjust: exact;
+				-webkit-print-color-adjust: exact;
+			}
+
+			tr { break-inside: avoid; }
+			a { color: inherit; overflow-wrap: anywhere; }
+			.document-footer { display: none; }
+		}
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#main-content">Skip to document</a>
+	<div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
+
+	<aside class="sidebar" id="sidebar" aria-label="Document navigation">
+		<div class="brand">
+			<div class="brand-mark" aria-hidden="true">R</div>
+			<div>
+				<div class="brand-name">Syntaxxed</div>
+				<span class="brand-subtitle">Strategic plan</span>
+			</div>
+		</div>
+		<div class="sidebar-label">Contents</div>
+		<nav class="toc" id="table-of-contents">
+			<a class="toc-link toc-level-2" href="#executive-recommendation">Executive recommendation</a>
+<a class="toc-link toc-level-2" href="#why-this-strategy-is-credible">Why this strategy is credible</a>
+<a class="toc-link toc-level-2" href="#strategic-choices-to-make-immediately">Strategic choices to make immediately</a>
+<a class="toc-link toc-level-3" href="#1-choose-the-wedge">1. Choose the wedge</a>
+<a class="toc-link toc-level-3" href="#2-decide-the-free-open-core-boundary">2. Decide the free/open-core boundary</a>
+<a class="toc-link toc-level-3" href="#3-select-the-buyer-and-budget">3. Select the buyer and budget</a>
+<a class="toc-link toc-level-3" href="#4-define-well-funded">4. Define “well funded”</a>
+<a class="toc-link toc-level-2" href="#north-star-metric-and-evidence-hierarchy">North-star metric and evidence hierarchy</a>
+<a class="toc-link toc-level-3" href="#north-star-metric">North-star metric</a>
+<a class="toc-link toc-level-3" href="#supporting-developer-metrics">Supporting developer metrics</a>
+<a class="toc-link toc-level-3" href="#enterprise-metrics">Enterprise metrics</a>
+<a class="toc-link toc-level-3" href="#evidence-hierarchy-for-investors-and-buyers">Evidence hierarchy for investors and buyers</a>
+<a class="toc-link toc-level-2" href="#master-execution-pipeline">Master execution pipeline</a>
+<a class="toc-link toc-level-3" href="#critical-path-sequence">Critical-path sequence</a>
+<a class="toc-link toc-level-2" href="#eighteen-month-stage-gated-plan">Eighteen-month stage-gated plan</a>
+<a class="toc-link toc-level-2" href="#stage-0-company-and-launch-foundation">Stage 0 — company and launch foundation</a>
+<a class="toc-link toc-level-3" href="#objective">Objective</a>
+<a class="toc-link toc-level-3" href="#tasks">Tasks</a>
+<a class="toc-link toc-level-3" href="#exit-criteria">Exit criteria</a>
+<a class="toc-link toc-level-2" href="#stage-1-free-developer-validation">Stage 1 — free developer validation</a>
+<a class="toc-link toc-level-3" href="#objective-2">Objective</a>
+<a class="toc-link toc-level-3" href="#developer-acquisition-pipeline">Developer acquisition pipeline</a>
+<a class="toc-link toc-level-3" href="#acquisition-tasks">Acquisition tasks</a>
+<a class="toc-link toc-level-3" href="#interview-questions">Interview questions</a>
+<a class="toc-link toc-level-3" href="#exit-criteria-2">Exit criteria</a>
+<a class="toc-link toc-level-2" href="#stage-2-enterprise-discovery-and-design-partners">Stage 2 — enterprise discovery and design partners</a>
+<a class="toc-link toc-level-3" href="#objective-3">Objective</a>
+<a class="toc-link toc-level-3" href="#initial-ideal-customer-profile">Initial ideal-customer profile</a>
+<a class="toc-link toc-level-3" href="#design-partner-pipeline">Design-partner pipeline</a>
+<a class="toc-link toc-level-3" href="#pipeline-roles">Pipeline roles</a>
+<a class="toc-link toc-level-3" href="#discovery-tasks">Discovery tasks</a>
+<a class="toc-link toc-level-3" href="#six-week-pilot-structure">Six-week pilot structure</a>
+<a class="toc-link toc-level-3" href="#exit-criteria-3">Exit criteria</a>
+<a class="toc-link toc-level-2" href="#stage-3-primary-pre-seed-process">Stage 3 — primary pre-seed process</a>
+<a class="toc-link toc-level-3" href="#objective-4">Objective</a>
+<a class="toc-link toc-level-3" href="#recommended-investor-segmentation">Recommended investor segmentation</a>
+<a class="toc-link toc-level-3" href="#investor-pipeline">Investor pipeline</a>
+<a class="toc-link toc-level-3" href="#pipeline-fields">Pipeline fields</a>
+<a class="toc-link toc-level-3" href="#fundraising-materials">Fundraising materials</a>
+<a class="toc-link toc-level-3" href="#process-recommendations">Process recommendations</a>
+<a class="toc-link toc-level-3" href="#seis-eis-recommendation">SEIS/EIS recommendation</a>
+<a class="toc-link toc-level-3" href="#exit-criteria-4">Exit criteria</a>
+<a class="toc-link toc-level-2" href="#stage-4-enterprise-alpha-and-paid-conversion">Stage 4 — enterprise alpha and paid conversion</a>
+<a class="toc-link toc-level-3" href="#product-priorities">Product priorities</a>
+<a class="toc-link toc-level-3" href="#security-priorities">Security priorities</a>
+<a class="toc-link toc-level-3" href="#commercial-priorities">Commercial priorities</a>
+<a class="toc-link toc-level-3" href="#team-plan">Team plan</a>
+<a class="toc-link toc-level-3" href="#exit-criteria-5">Exit criteria</a>
+<a class="toc-link toc-level-2" href="#stage-5-seed-round-or-strategic-process">Stage 5 — seed round or strategic process</a>
+<a class="toc-link toc-level-3" href="#choose-the-path-using-evidence">Choose the path using evidence</a>
+<a class="toc-link toc-level-2" href="#strategic-acquirer-pipeline">Strategic-acquirer pipeline</a>
+<a class="toc-link toc-level-3" href="#buyer-hypotheses">Buyer hypotheses</a>
+<a class="toc-link toc-level-3" href="#build-a-30-company-strategic-map">Build a 30-company strategic map</a>
+<a class="toc-link toc-level-3" href="#strategic-relationship-stages">Strategic relationship stages</a>
+<a class="toc-link toc-level-3" href="#relationship-strategy">Relationship strategy</a>
+<a class="toc-link toc-level-3" href="#acquisition-value-drivers">Acquisition value drivers</a>
+<a class="toc-link toc-level-3" href="#m-a-readiness-tasks">M&amp;A readiness tasks</a>
+<a class="toc-link toc-level-3" href="#do-not-grant">Do not grant</a>
+<a class="toc-link toc-level-2" href="#data-room-structure">Data room structure</a>
+<a class="toc-link toc-level-2" href="#operating-pipelines">Operating pipelines</a>
+<a class="toc-link toc-level-3" href="#developer-pipeline-fields">Developer pipeline fields</a>
+<a class="toc-link toc-level-3" href="#design-partner-pipeline-fields">Design-partner pipeline fields</a>
+<a class="toc-link toc-level-3" href="#investor-pipeline-fields">Investor pipeline fields</a>
+<a class="toc-link toc-level-3" href="#strategic-acquirer-pipeline-fields">Strategic-acquirer pipeline fields</a>
+<a class="toc-link toc-level-3" href="#weekly-pipeline-discipline">Weekly pipeline discipline</a>
+<a class="toc-link toc-level-2" href="#first-30-60-and-90-days">First 30, 60, and 90 days</a>
+<a class="toc-link toc-level-3" href="#days-1-30">Days 1–30</a>
+<a class="toc-link toc-level-3" href="#days-31-60">Days 31–60</a>
+<a class="toc-link toc-level-3" href="#days-61-90">Days 61–90</a>
+<a class="toc-link toc-level-2" href="#risk-register-and-recommended-responses">Risk register and recommended responses</a>
+<a class="toc-link toc-level-2" href="#decision-gates">Decision gates</a>
+<a class="toc-link toc-level-3" href="#gate-a-public-launch">Gate A — public launch</a>
+<a class="toc-link toc-level-3" href="#gate-b-enterprise-build">Gate B — enterprise build</a>
+<a class="toc-link toc-level-3" href="#gate-c-primary-pre-seed">Gate C — primary pre-seed</a>
+<a class="toc-link toc-level-3" href="#gate-d-seed">Gate D — seed</a>
+<a class="toc-link toc-level-3" href="#gate-e-formal-acquisition-process">Gate E — formal acquisition process</a>
+<a class="toc-link toc-level-2" href="#what-not-to-do">What not to do</a>
+<a class="toc-link toc-level-2" href="#recommended-immediate-founder-priorities">Recommended immediate founder priorities</a>
+<a class="toc-link toc-level-2" href="#final-recommendation">Final recommendation</a>
+		</nav>
+		<div class="sidebar-note">
+			<strong>Working document</strong><br>
+			Review pipelines every week and stage gates monthly. Replace role
+			owners with named individuals as the team grows.
+		</div>
+	</aside>
+
+	<div class="page-shell">
+		<header class="toolbar">
+			<button class="menu-button" id="menu-button" type="button" aria-controls="sidebar" aria-expanded="false">
+				<span aria-hidden="true">☰</span>
+				<span class="button-label">Contents</span>
+			</button>
+			<button id="print-button" type="button">
+				<span aria-hidden="true">↗</span>
+				<span class="button-label">Print / Save PDF</span>
+			</button>
+		</header>
+
+		<main class="document" id="main-content">
+			<section class="hero" aria-labelledby="document-title">
+				<div class="hero-content">
+					<p class="eyebrow">Strategic operating plan</p>
+					<h1 id="document-title">Syntaxxed funding and strategic-acquisition action plan</h1>
+					<p class="hero-summary">
+						Developer adoption → enterprise evidence → focused funding
+						or a high-leverage strategic outcome.
+					</p>
+					<div class="meta-row"><span class="meta-pill">Last updated: 6 August 2026</span><span class="meta-pill">Planning horizon: 18 months</span><span class="meta-pill">Assumption: UK-headquartered company with a global developer and enterprise market</span></div>
+				</div>
+			</section>
+
+			<section class="snapshot" aria-label="Plan summary">
+				<div class="snapshot-card"><span class="snapshot-value">18</span><span class="snapshot-label">Month horizon</span></div>
+				<div class="snapshot-card"><span class="snapshot-value">39</span><span class="snapshot-label">Master actions</span></div>
+				<div class="snapshot-card"><span class="snapshot-value">4</span><span class="snapshot-label">Operating pipelines</span></div>
+				<div class="snapshot-card"><span class="snapshot-value">5</span><span class="snapshot-label">Decision gates</span></div>
+			</section>
+
+			<article class="content">
+				<h2 id="executive-recommendation">Executive recommendation</h2>
+<p>Build Syntaxxed as a credible independent company and preserve acquisition as
+an option. Do not present the company as being built to sell. That weakens
+customer confidence, recruiting, investor leverage, and ultimately the price a
+strategic buyer may pay.</p>
+<p>The recommended sequence is:</p>
+<ol>
+<li>Release an excellent free product for individual developers.</li>
+<li>Prove repeated use and measurable context-governance value.</li>
+<li>Recruit enterprise design partners before building a broad control plane.</li>
+<li>Raise a focused pre-seed round against evidence, not only the roadmap.</li>
+<li>Convert design partners into paid deployments.</li>
+<li>Build relationships with likely strategic buyers through integrations and
+partnerships without beginning a sale process.</li>
+<li>Choose between a larger seed round and a competitive acquisition process
+once the company has real leverage.</li>
+</ol>
+<p>The commercial thesis should be:</p>
+<blockquote>
+<p>Syntaxxed is the developer-first, least-privilege context layer for coding
+agents. It governs what source code an agent receives, explains the decision,
+and supplies the minimum useful context across models and developer tools.</p>
+</blockquote>
+<p>Token reduction is the initial developer benefit and an easily measured ROI
+signal. It is not the enduring moat. The prospective moat is the combination of
+policy, integrations, evaluation evidence, deployment footprint, workflow data,
+and trust.</p>
+<h2 id="why-this-strategy-is-credible">Why this strategy is credible</h2>
+<p>The market is real, but it is becoming competitive:</p>
+<ul>
+<li>MCP moved to vendor-neutral governance under the Linux Foundation’s Agentic
+AI Foundation. The project reported more than 97 million monthly SDK
+downloads, 10,000 active servers, and first-class support across the major AI
+platforms at the time of the move. This supports a vendor-neutral strategy
+rather than dependence on one model provider:
+<a href="https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/" target="_blank" rel="noopener noreferrer">https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/</a></li>
+<li>Cline demonstrated the developer-first path. It reported 2.7 million installs
+and raised $32 million to expand from an open developer product into
+enterprise administration, security, and policy:
+<a href="https://cline.bot/blog/cline-raises-32m-series-a-and-seed-funding-building-the-open-source-ai-coding-agent-that-enterprises-trust" target="_blank" rel="noopener noreferrer">https://cline.bot/blog/cline-raises-32m-series-a-and-seed-funding-building-the-open-source-ai-coding-agent-that-enterprises-trust</a></li>
+<li>Backslash Security raised a $19 million Series A around security and
+governance for AI coding agents, IDEs, and MCP:
+<a href="https://www.backslash.security/press-releases/backslash-security-raises-19m-series-a-to-secure-vibe-coding-boom-in-the-enterprise-bolsters-board-with-cybersecurity-industry-leader" target="_blank" rel="noopener noreferrer">https://www.backslash.security/press-releases/backslash-security-raises-19m-series-a-to-secure-vibe-coding-boom-in-the-enterprise-bolsters-board-with-cybersecurity-industry-leader</a></li>
+<li>CodeIntegrity raised a $5 million seed round for runtime governance of AI
+agents, showing specialist investors will fund an early control-layer
+proposition:
+<a href="https://www.codeintegrity.ai/blog/codeintegrity-seed-round" target="_blank" rel="noopener noreferrer">https://www.codeintegrity.ai/blog/codeintegrity-seed-round</a></li>
+<li>Citrix has introduced MCP gateway capabilities in NetScaler. This validates
+enterprise demand but also proves that generic gateway functionality will be
+competed away:
+<a href="https://www.citrix.com/news/announcements/july-2026/citrix-brings-unified-governance-to-llm-and-agentic-ai-traffic-with-netscaler-mcp-gateway-capabilities.html" target="_blank" rel="noopener noreferrer">https://www.citrix.com/news/announcements/july-2026/citrix-brings-unified-governance-to-llm-and-agentic-ai-traffic-with-netscaler-mcp-gateway-capabilities.html</a></li>
+<li>Strategic acquisition appetite exists. Palo Alto Networks acquired Protect AI
+and Cisco acquired Robust Intelligence to expand their AI-security
+platforms:
+<a href="https://investors.paloaltonetworks.com/news-releases/news-release-details/palo-alto-networks-completes-acquisition-protect-ai" target="_blank" rel="noopener noreferrer">https://investors.paloaltonetworks.com/news-releases/news-release-details/palo-alto-networks-completes-acquisition-protect-ai</a>
+and
+<a href="https://www.cisco.com/site/us/en/products/security/ai-defense/robust-intelligence-is-part-of-cisco/index.html" target="_blank" rel="noopener noreferrer">https://www.cisco.com/site/us/en/products/security/ai-defense/robust-intelligence-is-part-of-cisco/index.html</a></li>
+</ul>
+<p>These examples validate the category. They do not prove that Syntaxxed will be
+funded or acquired. Syntaxxed must establish a narrow, defensible reason to win.</p>
+<h2 id="strategic-choices-to-make-immediately">Strategic choices to make immediately</h2>
+<h3 id="1-choose-the-wedge">1. Choose the wedge</h3>
+<p>Recommendation: own code-context disclosure for AI-assisted software
+development, not generic MCP proxying.</p>
+<p>The initial use case is:</p>
+<ul>
+<li>A developer uses Claude Code, Codex, Cursor, Copilot, Cline, or another agent.</li>
+<li>Syntaxxed supplies task-relevant code at the lowest useful disclosure level.</li>
+<li>The developer can see and approve escalation from Outline to Logic to Source.</li>
+<li>The organization can later define, distribute, and audit that policy.</li>
+</ul>
+<p>This is more specific than “MCP security” and more valuable than token
+reduction alone.</p>
+<h3 id="2-decide-the-free-open-core-boundary">2. Decide the free/open-core boundary</h3>
+<p>Recommendation: seriously evaluate an open-core model before public launch.
+Security infrastructure benefits from inspectability and community trust.</p>
+<p>Suggested boundary:</p>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Individual/community</th>
+<th>Team</th>
+<th>Enterprise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local extension and CLI</td>
+<td>Free</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>Local single-user gateway</td>
+<td>Free</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>Outline, Logic, Source and redaction</td>
+<td>Free</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>Local audit output</td>
+<td>Free</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>Bring-your-own model/agent</td>
+<td>Free</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>Repository policy file</td>
+<td>Free</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>Shared policy management</td>
+<td>—</td>
+<td>Paid</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>Team audit and dashboards</td>
+<td>—</td>
+<td>Paid</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>Approval routing</td>
+<td>—</td>
+<td>Paid</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>SSO, SCIM and enterprise RBAC</td>
+<td>—</td>
+<td>—</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>Signed policy distribution</td>
+<td>—</td>
+<td>—</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>SIEM, DLP and device integrations</td>
+<td>—</td>
+<td>—</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>Private/on-premises control plane</td>
+<td>—</td>
+<td>—</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>SLA, support and deployment assurance</td>
+<td>—</td>
+<td>—</td>
+<td>Paid</td>
+</tr>
+</tbody>
+</table></div>
+<p>Do not force an account merely to use the local free product. Offer an optional
+account for release notifications, policy sync, community participation, or
+early-access features. Source the local-first privacy advantage.</p>
+<p>The local developer core was relicensed under Apache-2.0 on 7 August 2026. Now:</p>
+<ul>
+<li>Obtain legal confirmation that the public terms and intended commercial
+boundary are correctly expressed.</li>
+<li>Produce a component inventory and dependency licence report.</li>
+<li>Keep the current extension, CLI, and embedded gateway open; define which
+future hosted control-plane, administration, policy-distribution, and support
+services remain commercial.</li>
+<li>Ensure every contributor signs an appropriate contributor or IP agreement.</li>
+<li>Record the Apache-2.0 and commercial boundary in a short licensing decision
+memorandum.</li>
+</ul>
+<h3 id="3-select-the-buyer-and-budget">3. Select the buyer and budget</h3>
+<p>The developer is the user and champion. The eventual buyers are likely to be:</p>
+<ul>
+<li>Head of Developer Platform or Developer Experience.</li>
+<li>Head of Application Security.</li>
+<li>CISO or AI Security leader.</li>
+<li>VP Engineering in smaller organizations.</li>
+<li>AI platform or infrastructure owner.</li>
+</ul>
+<p>The product must create developer pull without requiring developers to own the
+enterprise budget.</p>
+<h3 id="4-define-well-funded">4. Define “well funded”</h3>
+<p>Recommendation: do not optimize for the largest possible first round.
+“Well funded” should mean enough capital to reach the next proof point without
+cutting security work.</p>
+<p>A sensible primary pre-seed planning case is approximately £1.0 million to
+£1.5 million for 18 to 24 months of runway. Final sizing must be derived from a
+bottom-up hiring and operating model, not used as a vanity target.</p>
+<p>This should fund:</p>
+<ul>
+<li>A founder.</li>
+<li>Two senior platform/security engineers.</li>
+<li>One developer-product or integrations engineer.</li>
+<li>Fractional product-security and enterprise go-to-market support initially.</li>
+<li>Independent penetration testing, legal work, design, infrastructure, and
+contingency.</li>
+</ul>
+<p>If runway is currently constrained, consider a smaller SEIS-compatible angel
+round or non-dilutive funding first. Avoid raising a small institutional round
+that creates governance overhead but cannot fund the necessary team.</p>
+<h2 id="north-star-metric-and-evidence-hierarchy">North-star metric and evidence hierarchy</h2>
+<h3 id="north-star-metric">North-star metric</h3>
+<p><strong>Weekly governed context requests from retained developers.</strong></p>
+<p>This is stronger than downloads, prepared tokens, or gateway installations.
+It demonstrates repeated use of the actual control point.</p>
+<h3 id="supporting-developer-metrics">Supporting developer metrics</h3>
+<p>Track with explicit privacy consent and without collecting source code, paths,
+credentials, prompt contents, or customer repository identity:</p>
+<ul>
+<li>Marketplace and Open VSX installs.</li>
+<li>Activation: first successful preview, export, or gateway disclosure.</li>
+<li>Time to first value.</li>
+<li>Weekly and monthly active installations.</li>
+<li>Week-one and week-four retention.</li>
+<li>Governed requests per active developer.</li>
+<li>Context-detail distribution across Outline, Logic, and Source.</li>
+<li>Approval, denial, and escalation rates using aggregate categories only.</li>
+<li>Number and proportion of users enabling the gateway.</li>
+<li>Crash-free and error-free session rate.</li>
+<li>Opt-in referral, review, and community participation rate.</li>
+<li>Enterprise-interest conversions.</li>
+</ul>
+<p>Initial targets are hypotheses to validate, not promises:</p>
+<ul>
+<li>At least 40% of qualified new installations reach first value.</li>
+<li>Median time to first value below five minutes.</li>
+<li>At least 25% week-four retention among activated users.</li>
+<li>At least three governed sessions per retained user per week.</li>
+<li>At least 20 detailed interviews with retained users.</li>
+<li>At least 10 identifiable organizations with multiple organic users.</li>
+</ul>
+<h3 id="enterprise-metrics">Enterprise metrics</h3>
+<ul>
+<li>Repositories and active developers covered by policy.</li>
+<li>Percentage of agent code requests mediated by Syntaxxed.</li>
+<li>Requests automatically minimized, approved, denied, or escalated.</li>
+<li>Approval response time and approval fatigue.</li>
+<li>Policy-decision latency and context-response latency.</li>
+<li>Relevant-context recall and task-success rate.</li>
+<li>Source tokens transmitted compared with the control workflow.</li>
+<li>Prevented restricted-path or secret disclosures.</li>
+<li>Deployment time and support burden.</li>
+<li>Pilot conversion and expansion.</li>
+</ul>
+<h3 id="evidence-hierarchy-for-investors-and-buyers">Evidence hierarchy for investors and buyers</h3>
+<p>Rank evidence in this order:</p>
+<ol>
+<li>Paid production usage.</li>
+<li>Paid pilot with an agreed expansion path.</li>
+<li>Signed design-partner agreement with named executive sponsor.</li>
+<li>Repeated organic use inside a recognizable organization.</li>
+<li>Strong retained individual-developer use.</li>
+<li>Written customer references and security validation.</li>
+<li>Benchmarks and independent testing.</li>
+<li>Downloads, website traffic, waiting-list sign-ups, and social interest.</li>
+</ol>
+<p>Do not present low-quality metrics as if they were revenue evidence.</p>
+<h2 id="master-execution-pipeline">Master execution pipeline</h2>
+<p>Use this as the operating register. Replace role owners with names when people
+join, enter actual dates, and update status every Friday.</p>
+<p>Status vocabulary:</p>
+<ul>
+<li><strong>Not started:</strong> no work product exists.</li>
+<li><strong>In progress:</strong> an owner and dated next action exist.</li>
+<li><strong>Blocked:</strong> the blocking decision or dependency is recorded.</li>
+<li><strong>Complete:</strong> the definition of done has objective evidence.</li>
+</ul>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Priority</th>
+<th>Target</th>
+<th>Owner</th>
+<th>Dependency</th>
+<th>Action and recommendation</th>
+<th>Definition of done</th>
+<th>Initial status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-01</td>
+<td>Critical</td>
+<td>Day 10</td>
+<td>Founder + solicitor</td>
+<td>None</td>
+<td>Confirm company structure and execute assignment of all existing Syntaxxed IP</td>
+<td>Signed assignments, company register and cap table stored in data room</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>C-02</td>
+<td>Critical</td>
+<td>Day 15</td>
+<td>Founder + solicitor</td>
+<td>C-01</td>
+<td>Validate the Apache-2.0 local-core and separately licensed enterprise boundary</td>
+<td>Written licensing memorandum and legally reviewed public terms</td>
+<td>In progress — Apache-2.0 chosen and public terms updated</td>
+</tr>
+<tr>
+<td>C-03</td>
+<td>High</td>
+<td>Day 20</td>
+<td>Founder + IP adviser</td>
+<td>C-01</td>
+<td>Review Syntaxxed name, domains, marketplace IDs and trademark risk</td>
+<td>Search recorded, filing/renaming decision made</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>C-04</td>
+<td>Critical</td>
+<td>Day 20</td>
+<td>Founder</td>
+<td>C-01</td>
+<td>Put contributor, contractor, confidentiality and invention terms in place</td>
+<td>No person can contribute without signed terms</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>F-01</td>
+<td>Critical</td>
+<td>Day 14</td>
+<td>Founder + accountant</td>
+<td>C-01</td>
+<td>Build 24-month monthly cash model with three scenarios</td>
+<td>Model reconciles headcount, runway, cash and milestone dates</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>F-02</td>
+<td>High</td>
+<td>Day 30</td>
+<td>Founder + tax adviser</td>
+<td>F-01</td>
+<td>Assess SEIS/EIS eligibility and R&amp;D-relief process</td>
+<td>Written eligibility/action note from qualified adviser</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>F-03</td>
+<td>High</td>
+<td>Day 45</td>
+<td>Founder</td>
+<td>F-02 + initial angels</td>
+<td>Prepare SEIS/EIS advance-assurance evidence if appropriate</td>
+<td>Complete submission pack with named prospective investors</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>P-01</td>
+<td>Critical</td>
+<td>Day 14</td>
+<td>Founder/engineer</td>
+<td>Current 0.2.0</td>
+<td>Test install, gateway, disable and uninstall on Windows, macOS and Linux</td>
+<td>Signed test matrix with all critical paths passing</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>P-02</td>
+<td>Critical</td>
+<td>Day 21</td>
+<td>Founder/engineer</td>
+<td>P-01</td>
+<td>Add clear gateway state, recent decisions and stale-registration repair</td>
+<td>User can understand and repair state without editing JSON</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>P-03</td>
+<td>Critical</td>
+<td>Day 21</td>
+<td>Founder + privacy adviser</td>
+<td>Metrics definition</td>
+<td>Add privacy-safe, explicit-consent product analytics</td>
+<td>Data dictionary, consent flow and deletion path reviewed</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>P-04</td>
+<td>High</td>
+<td>Day 30</td>
+<td>Founder/engineer</td>
+<td>P-01</td>
+<td>Create signed release, SBOM, provenance and checksum workflow</td>
+<td>Release checklist creates verifiable artifacts automatically</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>P-05</td>
+<td>High</td>
+<td>Day 30</td>
+<td>Founder/engineer</td>
+<td>P-01</td>
+<td>Validate current Claude Code and Cursor clients; document other adapters accurately</td>
+<td>Repeatable compatibility tests and support matrix published</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>S-01</td>
+<td>Critical</td>
+<td>Day 21</td>
+<td>Security engineer/adviser</td>
+<td>P-01</td>
+<td>Complete formal local-gateway threat model and abuse cases</td>
+<td>Reviewed document covers identity, paths, lifecycle, bypass and recovery</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>S-02</td>
+<td>High</td>
+<td>Day 45</td>
+<td>Engineer</td>
+<td>S-01</td>
+<td>Add fuzz/property tests for paths, protocol bodies and parser boundaries</td>
+<td>Automated tests run in CI with recorded corpus/regressions</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>S-03</td>
+<td>High</td>
+<td>Month 5</td>
+<td>External tester</td>
+<td>S-01 + pilot build</td>
+<td>Commission independent penetration test</td>
+<td>Report received and critical/high findings resolved</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>G-01</td>
+<td>Critical</td>
+<td>Day 21</td>
+<td>Founder/product</td>
+<td>Positioning decision</td>
+<td>Build landing page around least-privilege code context</td>
+<td>Page has one audience, problem, demonstration and install action</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>G-02</td>
+<td>High</td>
+<td>Day 30</td>
+<td>Founder/product</td>
+<td>G-01</td>
+<td>Produce context reduction, disclosure escalation and prevention demos</td>
+<td>Three short reproducible demos published</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>G-03</td>
+<td>High</td>
+<td>Day 30</td>
+<td>Founder/security</td>
+<td>S-01</td>
+<td>Publish security boundaries and threat-model summary</td>
+<td>Prospective user can see protections and non-protections before install</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>G-04</td>
+<td>Critical</td>
+<td>Day 35</td>
+<td>Founder</td>
+<td>P-01 to P-05</td>
+<td>Launch free edition through Marketplace, Open VSX and owned channels</td>
+<td>Signed release public; support and feedback routes monitored</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>G-05</td>
+<td>Critical</td>
+<td>Weekly after launch</td>
+<td>Founder/product</td>
+<td>G-04</td>
+<td>Review activation, retention, errors and user feedback</td>
+<td>Weekly cohort report and top-three action list produced</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>R-01</td>
+<td>Critical</td>
+<td>Day 15</td>
+<td>Founder</td>
+<td>None</td>
+<td>Recruit first 100 qualified testers from relevant agent workflows</td>
+<td>Named/contactable cohort or privacy-respecting opt-in pool exists</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>R-02</td>
+<td>Critical</td>
+<td>Day 60</td>
+<td>Founder</td>
+<td>G-04</td>
+<td>Interview at least 10 activated and five churned users</td>
+<td>Notes coded into repeated jobs, objections and triggers</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>R-03</td>
+<td>Critical</td>
+<td>Day 90</td>
+<td>Founder</td>
+<td>R-02</td>
+<td>Complete at least 20 interviews with retained users</td>
+<td>Evidence summary changes or confirms ICP and roadmap</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>R-04</td>
+<td>High</td>
+<td>Day 60</td>
+<td>Founder/engineer</td>
+<td>Benchmark corpus</td>
+<td>Publish first controlled relevance/task-success benchmark</td>
+<td>Method, corpus licences, results and limitations reproducible</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>E-01</td>
+<td>Critical</td>
+<td>Day 30</td>
+<td>Founder</td>
+<td>ICP hypothesis</td>
+<td>Create 50-account design-partner target list</td>
+<td>Every account has ICP reason, trigger, champion hypothesis and next action</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>E-02</td>
+<td>Critical</td>
+<td>Day 60</td>
+<td>Founder</td>
+<td>E-01</td>
+<td>Complete first 10 enterprise discovery meetings</td>
+<td>Pain, owner, current process, urgency and procurement recorded</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>E-03</td>
+<td>Critical</td>
+<td>Day 90</td>
+<td>Founder + engineer</td>
+<td>E-02</td>
+<td>Secure three technical validations</td>
+<td>Scope, data boundary, success measure and scheduled date agreed</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>E-04</td>
+<td>Critical</td>
+<td>Month 4</td>
+<td>Founder + solicitor</td>
+<td>E-03</td>
+<td>Standardize six-week pilot, DPA and security pack</td>
+<td>Reusable proposal and contract pack approved</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>E-05</td>
+<td>Critical</td>
+<td>Month 6</td>
+<td>Founder</td>
+<td>E-04</td>
+<td>Run five pilots and convert at least one to paid</td>
+<td>Pilot evidence and paid agreement stored in data room</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>T-01</td>
+<td>High</td>
+<td>Day 45</td>
+<td>Founder</td>
+<td>Credibility gaps</td>
+<td>Recruit security-buyer and developer-platform operating advisers</td>
+<td>Written scope, conflicts, time, equity and deliverables agreed</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>T-02</td>
+<td>High</td>
+<td>Month 5</td>
+<td>Founder</td>
+<td>F-01 + funding confidence</td>
+<td>Prepare first senior security/platform engineer scorecard</td>
+<td>Role outcomes, interview process and compensation approved</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>V-01</td>
+<td>High</td>
+<td>Day 30</td>
+<td>Founder</td>
+<td>Positioning</td>
+<td>Build 120-investor longlist and qualify first 80</td>
+<td>Stage, cheque, thesis, conflicts, partner and introducer recorded</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>V-02</td>
+<td>High</td>
+<td>Day 60</td>
+<td>Founder</td>
+<td>Metrics + F-01</td>
+<td>Draft deck, memorandum, model and diligence index</td>
+<td>Materials survive review by three experienced founders/investors</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>V-03</td>
+<td>Critical</td>
+<td>After Gate C</td>
+<td>Founder + counsel</td>
+<td>Retention + design partners</td>
+<td>Run batched four-to-six-week pre-seed process</td>
+<td>At least two credible lead paths or documented evidence gap</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>A-01</td>
+<td>Medium</td>
+<td>Day 45</td>
+<td>Founder</td>
+<td>Buyer hypotheses</td>
+<td>Build 30-company strategic map</td>
+<td>Product owner, rationale, overlap, route and next action recorded</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>A-02</td>
+<td>Medium</td>
+<td>Day 90</td>
+<td>Founder/engineer</td>
+<td>A-01</td>
+<td>Establish first five ecosystem relationships</td>
+<td>Five relevant contacts and at least two integration discussions active</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>A-03</td>
+<td>Medium</td>
+<td>Quarterly</td>
+<td>Founder</td>
+<td>A-02</td>
+<td>Send evidence-based strategic updates without sale solicitation</td>
+<td>Relevant contacts receive concise product/customer/research update</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>D-01</td>
+<td>Critical</td>
+<td>Day 15</td>
+<td>Founder</td>
+<td>C-01</td>
+<td>Create data-room index and ownership/review cadence</td>
+<td>Ten-section data room exists with owner and last-review metadata</td>
+<td>Not started</td>
+</tr>
+<tr>
+<td>D-02</td>
+<td>High</td>
+<td>Monthly</td>
+<td>Founder + accountant</td>
+<td>D-01</td>
+<td>Update accounts, cap table, contracts, metrics and risk register</td>
+<td>Monthly close completed and missing evidence assigned</td>
+<td>Not started</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="critical-path-sequence">Critical-path sequence</h3>
+<p>The first critical path is:</p>
+<p><strong>C-01 → C-02 → P-01 → P-03/P-04 → G-04 → G-05 → R-03 → E-03 →
+E-05 → Gate C → V-03</strong></p>
+<p>Do not let investor outreach jump ahead of retention and design-partner evidence
+unless immediate runway makes a bridge unavoidable.</p>
+<p>The acquisition-option path runs alongside it at low intensity:</p>
+<p><strong>A-01 → A-02 → integrations/customer overlap → executive sponsors → commercial
+partnerships → Gate E</strong></p>
+<p>It must not consume the product and customer time needed to create the value a
+buyer would purchase.</p>
+<h2 id="eighteen-month-stage-gated-plan">Eighteen-month stage-gated plan</h2>
+<h2 id="stage-0-company-and-launch-foundation">Stage 0 — company and launch foundation</h2>
+<p>Timing: weeks 0–4, August to early September 2026</p>
+<h3 id="objective">Objective</h3>
+<p>Make the product, company, and evidence systems safe to expose publicly.</p>
+<h3 id="tasks">Tasks</h3>
+<h4 id="product-and-release">Product and release</h4>
+<ul>
+<li>Install and manually exercise the 0.2.0 VSIX in clean Windows, macOS, and
+Linux environments.</li>
+<li>Test Claude Code and Cursor registration against current released clients.</li>
+<li>Add an in-product explanation of what the gateway can and cannot mediate.</li>
+<li>Add a visible gateway state, recent decisions, and stale-registration repair
+workflow.</li>
+<li>Create a signed release process, SBOM, provenance record, and checksum page.</li>
+<li>Add crash reporting only if it can be privacy-preserving and opt-in.</li>
+<li>Create a reproducible release checklist.</li>
+<li>Publish a public issue template for security reports and a private security
+contact.</li>
+</ul>
+<h4 id="legal-and-corporate">Legal and corporate</h4>
+<ul>
+<li>Confirm the operating company and ownership structure with a UK startup
+solicitor and accountant.</li>
+<li>Execute founder IP assignment covering all existing code, designs,
+documentation, domains, trademarks, and inventions.</li>
+<li>Confirm no previous employment, contractor, or third-party terms claim any
+part of the IP.</li>
+<li>Establish a clean cap table and board/shareholder records.</li>
+<li>Decide the public licence and commercial licence boundary.</li>
+<li>Conduct a trademark and domain review for “Syntaxxed.”</li>
+<li>Prepare privacy notice, acceptable-use terms, end-user licence terms, and
+security disclosure policy.</li>
+<li>Put written contractor IP and confidentiality agreements in place before
+anyone contributes.</li>
+<li>Start a decision and invention log.</li>
+</ul>
+<h4 id="finance">Finance</h4>
+<ul>
+<li>Build a 24-month monthly cash-flow model with base, constrained, and
+accelerated cases.</li>
+<li>Separate product R&amp;D, customer work, security/compliance, sales, and general
+administration costs.</li>
+<li>Engage an accountant familiar with UK R&amp;D claims and venture-backed software.</li>
+<li>Assess SEIS/EIS eligibility and prepare for advance assurance with professional
+advice. HMRC expects an incorporated company, a UTR, a business plan,
+forecasts, use of funds, and evidence of prospective investors:
+<a href="https://www.gov.uk/guidance/venture-capital-schemes-apply-for-advance-assurance" target="_blank" rel="noopener noreferrer">https://www.gov.uk/guidance/venture-capital-schemes-apply-for-advance-assurance</a></li>
+<li>Review R&amp;D tax-relief eligibility rather than assuming every engineering cost
+qualifies. Current HMRC guidance covers the merged RDEC and enhanced
+R&amp;D-intensive support schemes:
+<a href="https://www.gov.uk/guidance/research-and-development-rd-tax-relief-the-merged-scheme-and-enhanced-rd-intensive-support" target="_blank" rel="noopener noreferrer">https://www.gov.uk/guidance/research-and-development-rd-tax-relief-the-merged-scheme-and-enhanced-rd-intensive-support</a></li>
+</ul>
+<h4 id="evidence-and-analytics">Evidence and analytics</h4>
+<ul>
+<li>Define the precise activation and retention events.</li>
+<li>Write a telemetry data dictionary showing every collected field and why it is
+needed.</li>
+<li>Add opt-in product analytics that contain no code, file paths, prompts,
+credentials, repository names, user identity, or device fingerprint.</li>
+<li>Create a weekly product-metrics report.</li>
+<li>Define a benchmark corpus using permissively licensed repositories and
+synthetic restricted-data fixtures.</li>
+</ul>
+<h3 id="exit-criteria">Exit criteria</h3>
+<ul>
+<li>Clean installation and removal on all three desktop platforms.</li>
+<li>No automatic network server or workspace mutation without consent.</li>
+<li>Release signing/provenance plan documented.</li>
+<li>IP ownership and contribution terms documented.</li>
+<li>Licence strategy decided.</li>
+<li>Privacy-safe activation and retention measurement operational.</li>
+<li>Public landing page, documentation, and onboarding ready.</li>
+</ul>
+<h2 id="stage-1-free-developer-validation">Stage 1 — free developer validation</h2>
+<p>Timing: weeks 5–12, September to October 2026</p>
+<h3 id="objective-2">Objective</h3>
+<p>Prove that solo developers repeatedly choose Syntaxxed when working with coding
+agents.</p>
+<h3 id="developer-acquisition-pipeline">Developer acquisition pipeline</h3>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>User action</th>
+<th>Product task</th>
+<th>Primary measure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discover</td>
+<td>Sees a concrete use case</td>
+<td>Publish demos and technical content</td>
+<td>Qualified visits</td>
+</tr>
+<tr>
+<td>Evaluate</td>
+<td>Reads security model or watches demo</td>
+<td>Clear comparison and threat model</td>
+<td>Install-page conversion</td>
+</tr>
+<tr>
+<td>Install</td>
+<td>Installs extension</td>
+<td>Marketplace/Open VSX and signed VSIX</td>
+<td>Installs</td>
+</tr>
+<tr>
+<td>Activate</td>
+<td>Produces first preview/export/request</td>
+<td>Five-minute guided onboarding</td>
+<td>Activation rate</td>
+</tr>
+<tr>
+<td>Reach value</td>
+<td>Sees useful context reduction/control</td>
+<td>Before/after receipt and explanation</td>
+<td>Time to value</td>
+</tr>
+<tr>
+<td>Retain</td>
+<td>Uses it in later agent sessions</td>
+<td>Reliable workflow and status UI</td>
+<td>W1/W4 retention</td>
+</tr>
+<tr>
+<td>Advocate</td>
+<td>Reviews, stars, refers, contributes</td>
+<td>Community and feedback loops</td>
+<td>Referrals/reviews</td>
+</tr>
+<tr>
+<td>Qualify</td>
+<td>Indicates team/security need</td>
+<td>Enterprise-interest call to action</td>
+<td>Qualified leads</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="acquisition-tasks">Acquisition tasks</h3>
+<ul>
+<li>Publish to the VS Code Marketplace and Open VSX only after repository,
+support, privacy, and release metadata are complete.</li>
+<li>Produce three short demonstrations:
+<ul>
+<li>Reduce a large repository to task-relevant context.</li>
+<li>Show progressive Outline to Logic to Source disclosure.</li>
+<li>Show a secret or restricted path being prevented without exposing it.</li>
+</ul>
+</li>
+<li>Publish the threat model and an honest “what Syntaxxed does not protect”
+article.</li>
+<li>Publish a transparent context-quality and efficiency benchmark.</li>
+<li>Create starter configurations for common TypeScript repositories.</li>
+<li>Add integrations and instructions for Claude Code, Cursor, Codex, Cline, and
+GitHub Copilot where supported.</li>
+<li>Participate helpfully in relevant developer communities; do not mass-post or
+manufacture engagement.</li>
+<li>Ask every retained user for a 20-minute interview.</li>
+<li>Run a weekly onboarding review using recordings only where the user has
+explicitly consented and no source content can be captured.</li>
+<li>Ship at least one user-visible improvement every two weeks during validation.</li>
+</ul>
+<h3 id="interview-questions">Interview questions</h3>
+<ul>
+<li>What job were you trying to complete?</li>
+<li>What agent and repository type were involved?</li>
+<li>What did you do before Syntaxxed?</li>
+<li>Was context size, confidentiality, relevance, or control the main problem?</li>
+<li>Which part felt unnecessary or confusing?</li>
+<li>When would you bypass Syntaxxed?</li>
+<li>Would you be disappointed if it disappeared?</li>
+<li>Does your employer already have a policy for coding agents?</li>
+<li>Who would care about team-wide visibility or policy?</li>
+<li>Would you introduce the product internally?</li>
+</ul>
+<p>Avoid asking “Would you pay?” in isolation. Ask what existing budget, process,
+or risk the product could replace.</p>
+<h3 id="exit-criteria-2">Exit criteria</h3>
+<p>Proceed when:</p>
+<ul>
+<li>Retention approaches the stated hypotheses or shows a clear improving trend.</li>
+<li>At least 20 retained users have completed interviews.</li>
+<li>At least five users have independently introduced Syntaxxed to colleagues.</li>
+<li>At least 10 organizations show multi-user or enterprise interest.</li>
+<li>The top three use cases are consistent enough to guide the next release.</li>
+</ul>
+<p>If activation is low, fix onboarding before marketing. If activation is high
+but retention is low, fix recurring value before fundraising.</p>
+<h2 id="stage-2-enterprise-discovery-and-design-partners">Stage 2 — enterprise discovery and design partners</h2>
+<p>Timing: months 3–6, November 2026 to January 2027</p>
+<h3 id="objective-3">Objective</h3>
+<p>Turn bottom-up usage into three to five serious enterprise design partners.</p>
+<h3 id="initial-ideal-customer-profile">Initial ideal-customer profile</h3>
+<p>Prioritize organizations that:</p>
+<ul>
+<li>Employ approximately 200 to 5,000 software engineers.</li>
+<li>Have meaningful proprietary code or regulated data.</li>
+<li>Already use two or more coding agents.</li>
+<li>Have an established developer-platform or application-security team.</li>
+<li>Permit controlled experimentation without a year-long procurement cycle.</li>
+<li>Can provide a technical champion and an executive or budget sponsor.</li>
+</ul>
+<p>Strong early vertical hypotheses include fintech, cybersecurity, developer
+infrastructure, B2B SaaS, regulated software, and IP-sensitive engineering.
+Do not commit to a regulated-sector sales motion until product and compliance
+capacity can support it.</p>
+<h3 id="design-partner-pipeline">Design-partner pipeline</h3>
+<p>Recommended initial funnel:</p>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th style="text-align:right">Target count</th>
+<th>Exit requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Named target accounts</td>
+<td style="text-align:right">50</td>
+<td>Matches ICP and has an identifiable trigger</td>
+</tr>
+<tr>
+<td>Warm introductions or relevant inbound</td>
+<td style="text-align:right">30</td>
+<td>Champion or sponsor accepts contact</td>
+</tr>
+<tr>
+<td>Discovery meetings</td>
+<td style="text-align:right">20</td>
+<td>Confirmed workflow, pain, owner, and urgency</td>
+</tr>
+<tr>
+<td>Technical validations</td>
+<td style="text-align:right">10</td>
+<td>Real repository test with agreed boundaries</td>
+</tr>
+<tr>
+<td>Design-partner proposals</td>
+<td style="text-align:right">7</td>
+<td>Scope, success criteria, responsibilities</td>
+</tr>
+<tr>
+<td>Active pilots</td>
+<td style="text-align:right">5</td>
+<td>Agreement signed and deployment started</td>
+</tr>
+<tr>
+<td>Paid pilots or contracts</td>
+<td style="text-align:right">3</td>
+<td>Money received or binding procurement path</td>
+</tr>
+</tbody>
+</table></div>
+<p>These are planning numbers, not guaranteed conversion rates.</p>
+<h3 id="pipeline-roles">Pipeline roles</h3>
+<ul>
+<li><strong>Champion:</strong> staff engineer, developer-experience lead, or application
+security engineer who wants the product to succeed.</li>
+<li><strong>Technical owner:</strong> developer-platform or AI-platform team.</li>
+<li><strong>Security approver:</strong> AppSec, product security, or CISO delegate.</li>
+<li><strong>Economic buyer:</strong> VP Engineering, platform leader, CISO, or CTO.</li>
+<li><strong>Blockers:</strong> procurement, legal, data protection, endpoint engineering, and
+works councils where applicable.</li>
+</ul>
+<p>Do not treat a friendly developer without access to a budget sponsor as a
+complete design partner.</p>
+<h3 id="discovery-tasks">Discovery tasks</h3>
+<ul>
+<li>Create an account brief before every call: agent adoption, repositories,
+security posture, likely owner, relevant public initiatives, and trigger.</li>
+<li>Map the existing workflow from agent request to code disclosure.</li>
+<li>Quantify current agent usage, model costs, data-policy constraints, incidents,
+manual reviews, and blocked deployments.</li>
+<li>Identify whether the buyer values cost, confidentiality, policy, audit, or
+enablement most.</li>
+<li>Establish a named success metric and current baseline.</li>
+<li>Confirm procurement and security-review steps before proposing dates.</li>
+<li>Ask for access to both the developer champion and security/platform buyer.</li>
+</ul>
+<h3 id="six-week-pilot-structure">Six-week pilot structure</h3>
+<p>Week 0:</p>
+<ul>
+<li>Signed pilot agreement, DPA where required, scope, repositories, users,
+deployment boundary, and success criteria.</li>
+</ul>
+<p>Week 1:</p>
+<ul>
+<li>Baseline agent workflow, policy workshop, installation, and threat-model
+review.</li>
+</ul>
+<p>Weeks 2–4:</p>
+<ul>
+<li>Controlled use, weekly feedback, incident review, latency and task-success
+measurement, and policy tuning.</li>
+</ul>
+<p>Week 5:</p>
+<ul>
+<li>Expansion test across an additional team or repository.</li>
+</ul>
+<p>Week 6:</p>
+<ul>
+<li>Executive readout, quantified outcome, security findings, roadmap gaps,
+production proposal, and reference decision.</li>
+</ul>
+<p>Recommended success criteria:</p>
+<ul>
+<li>Meaningful reduction in transmitted source context without material task
+success regression.</li>
+<li>No cross-workspace or unauthorized disclosure in the pilot boundary.</li>
+<li>Acceptable p95 response latency.</li>
+<li>Approval burden within an agreed limit.</li>
+<li>Positive developer satisfaction.</li>
+<li>Security/platform sponsor agrees there is a production problem worth funding.</li>
+</ul>
+<p>Prefer paid pilots. If an unpaid pilot is strategically necessary, require
+executive sponsorship, a fixed end date, structured feedback, a reference or
+case-study discussion, and a pre-agreed commercial conversion decision.</p>
+<h3 id="exit-criteria-3">Exit criteria</h3>
+<ul>
+<li>Three to five active design partners.</li>
+<li>At least one paid pilot.</li>
+<li>Two written or recorded executive-level statements of the problem.</li>
+<li>A ranked enterprise roadmap based on repeated requirements.</li>
+<li>A deployment and support model that does not require bespoke engineering for
+every account.</li>
+</ul>
+<h2 id="stage-3-primary-pre-seed-process">Stage 3 — primary pre-seed process</h2>
+<p>Timing: prepare during months 3–5; run a concentrated process once Stage 2
+evidence is credible</p>
+<h3 id="objective-4">Objective</h3>
+<p>Raise enough capital to build the pilot-ready enterprise product and team while
+retaining strategic freedom.</p>
+<h3 id="recommended-investor-segmentation">Recommended investor segmentation</h3>
+<p>Build a list of 80 to 120 relevant investors across:</p>
+<ul>
+<li>UK SEIS/EIS angels with cybersecurity, enterprise software, or developer-tool
+experience.</li>
+<li>Specialist cybersecurity seed funds.</li>
+<li>Developer-infrastructure and open-source investors.</li>
+<li>B2B enterprise-software seed funds.</li>
+<li>Selected US seed funds comfortable leading a UK company.</li>
+<li>Operators who have built developer tools, security platforms, or enterprise
+go-to-market teams.</li>
+<li>Non-dilutive grant and Contracts for Innovation opportunities.</li>
+</ul>
+<p>Monitor Innovate UK opportunities continuously rather than relying on a
+specific competition. For example, the 2026 Cyber Scale competition funded
+commercial cybersecurity demonstrations in critical sectors but is now closed:
+<a href="https://www.ukri.org/opportunity/contracts-for-innovation-cyber-scale-in-critical-sectors/" target="_blank" rel="noopener noreferrer">https://www.ukri.org/opportunity/contracts-for-innovation-cyber-scale-in-critical-sectors/</a></p>
+<p>UK seed fundraising is possible but selective. The British Business Bank
+reported that UK smaller-business equity deal count fell 15.1% in 2024 even
+though £10.8 billion was invested. Run a deliberate, time-bounded process:
+<a href="https://www.british-business-bank.co.uk/about/research-and-publications/small-business-equity-tracker-2025" target="_blank" rel="noopener noreferrer">https://www.british-business-bank.co.uk/about/research-and-publications/small-business-equity-tracker-2025</a></p>
+<h3 id="investor-pipeline">Investor pipeline</h3>
+<p>Recommended funnel for a concentrated process:</p>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th style="text-align:right">Planning target</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Longlist</td>
+<td style="text-align:right">120</td>
+<td>Broadly plausible stage/thesis/geography</td>
+</tr>
+<tr>
+<td>Qualified</td>
+<td style="text-align:right">80</td>
+<td>Check size, ownership, conflicts, track record</td>
+</tr>
+<tr>
+<td>Warm intro requested</td>
+<td style="text-align:right">60</td>
+<td>Named introducer and tailored rationale</td>
+</tr>
+<tr>
+<td>First meetings</td>
+<td style="text-align:right">35–45</td>
+<td>Investor has seen deck and evidence</td>
+</tr>
+<tr>
+<td>Partner meetings</td>
+<td style="text-align:right">12–18</td>
+<td>Fund-level interest, not associate research</td>
+</tr>
+<tr>
+<td>Active diligence</td>
+<td style="text-align:right">5–8</td>
+<td>Data room, references, product/security review</td>
+</tr>
+<tr>
+<td>Credible term sheets</td>
+<td style="text-align:right">2 or more</td>
+<td>Comparable economics and clean terms</td>
+</tr>
+<tr>
+<td>Lead and close</td>
+<td style="text-align:right">1 lead plus syndicate</td>
+<td>Funds received and announced</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="pipeline-fields">Pipeline fields</h3>
+<p>Track:</p>
+<ul>
+<li>Fund and partner.</li>
+<li>Stage, cheque range, reserve strategy, and ownership target.</li>
+<li>Relevant investments and conflicts.</li>
+<li>Cybersecurity, developer-tool, open-source, and enterprise expertise.</li>
+<li>Geography and lead capability.</li>
+<li>Warm introducer and relationship strength.</li>
+<li>First contact, last contact, next action, owner, and deadline.</li>
+<li>Current stage and probability.</li>
+<li>Key objection.</li>
+<li>Reference calls requested.</li>
+<li>Data-room access.</li>
+<li>Decision process and partnership meeting date.</li>
+<li>Term details and legal status.</li>
+</ul>
+<h3 id="fundraising-materials">Fundraising materials</h3>
+<p>Prepare before opening the process:</p>
+<ul>
+<li>Twelve-slide main deck.</li>
+<li>Two-page investment memorandum.</li>
+<li>Five-minute product demonstration.</li>
+<li>One-page architecture and security boundary.</li>
+<li>Market and competitor map.</li>
+<li>Developer traction dashboard with cohort retention.</li>
+<li>Design-partner pipeline and anonymized evidence.</li>
+<li>Benchmark report.</li>
+<li>Eighteen- and twenty-four-month financial model.</li>
+<li>Hiring plan and use of funds.</li>
+<li>Cap table.</li>
+<li>Product roadmap with stage gates.</li>
+<li>Data room.</li>
+<li>Customer and expert references.</li>
+<li>Clear answer to acquisition-platform risk.</li>
+</ul>
+<p>Suggested deck flow:</p>
+<ol>
+<li>Agent adoption creates uncontrolled code-context disclosure.</li>
+<li>Existing controls govern models, endpoints, or MCP tools but not the minimum
+necessary code context.</li>
+<li>Syntaxxed demonstrates progressive, reviewable disclosure.</li>
+<li>Free developers create bottom-up distribution.</li>
+<li>Enterprise policy and audit create the commercial expansion.</li>
+<li>Evidence: retention, governed requests, benchmarks, and design partners.</li>
+<li>Market and timing.</li>
+<li>Competition and differentiation.</li>
+<li>Business model.</li>
+<li>Roadmap and team.</li>
+<li>Financial plan and milestones.</li>
+<li>Round size and use of funds.</li>
+</ol>
+<h3 id="process-recommendations">Process recommendations</h3>
+<ul>
+<li>Do not drip investor conversations over six months.</li>
+<li>Complete preparation and reference cultivation first.</li>
+<li>Run first meetings in a four- to six-week batch to create comparable timing.</li>
+<li>Start with knowledgeable but non-critical investors, refine the pitch, then
+approach priority leads.</li>
+<li>Send a short weekly update to engaged investors.</li>
+<li>Keep product and customer momentum visible during the process.</li>
+<li>Perform reference checks on investors, including how they behave when a
+company misses plan.</li>
+<li>Compare liquidation preference, option-pool treatment, board control,
+protective provisions, pro-rata rights, and founder vesting—not only
+valuation.</li>
+<li>Avoid strategic rights of first refusal or exclusivity that could discourage
+future acquirers.</li>
+<li>Use an experienced startup solicitor for the round.</li>
+</ul>
+<h3 id="seis-eis-recommendation">SEIS/EIS recommendation</h3>
+<p>Obtain professional advice early. HMRC’s 2026 statistics report that £276
+million was raised under SEIS in 2024–25 and that information/communications
+companies represented 42% of SEIS investment. Advance assurance can materially
+help UK angel conversations:
+<a href="https://www.gov.uk/government/statistics/enterprise-investment-scheme-and-seed-enterprise-investment-scheme-may-2026/enterprise-investment-scheme-and-seed-enterprise-investment-scheme-2026" target="_blank" rel="noopener noreferrer">https://www.gov.uk/government/statistics/enterprise-investment-scheme-and-seed-enterprise-investment-scheme-may-2026/enterprise-investment-scheme-and-seed-enterprise-investment-scheme-2026</a></p>
+<p>HMRC generally requires evidence of prospective investors for a first advance
+assurance application, so cultivate named angel interest before filing:
+<a href="https://www.gov.uk/hmrc-internal-manuals/venture-capital-schemes-manual/vcm60230" target="_blank" rel="noopener noreferrer">https://www.gov.uk/hmrc-internal-manuals/venture-capital-schemes-manual/vcm60230</a></p>
+<h3 id="exit-criteria-4">Exit criteria</h3>
+<ul>
+<li>A lead investor with relevant expertise.</li>
+<li>At least 18 months of post-close runway under the base plan.</li>
+<li>Clean terms that preserve the ability to raise or sell later.</li>
+<li>Hiring scorecards ready before funds arrive.</li>
+<li>Board reporting and financial controls ready.</li>
+</ul>
+<p>If the company cannot secure two credible term-sheet paths, diagnose the gap
+rather than accepting structurally poor terms. Likely causes are insufficient
+retention, weak enterprise evidence, unclear differentiation, or team risk.</p>
+<h2 id="stage-4-enterprise-alpha-and-paid-conversion">Stage 4 — enterprise alpha and paid conversion</h2>
+<p>Timing: months 6–12, February to July 2027</p>
+<h3 id="product-priorities">Product priorities</h3>
+<p>Build only capabilities repeatedly required by design partners:</p>
+<ol>
+<li>Versioned repository and organization policy.</li>
+<li>Explainable decisions and policy simulation.</li>
+<li>Stable client registration without secrets in project files.</li>
+<li>Encrypted local policy and audit storage.</li>
+<li>Signed policy distribution and offline verification.</li>
+<li>Identity-aware decisions for user, device, workspace, agent, and model.</li>
+<li>Central audit metadata without source payloads by default.</li>
+<li>SIEM export.</li>
+<li>Administrative APIs and deployment automation.</li>
+<li>Additional parser-backed languages selected by customer usage.</li>
+<li>Retrieval evaluation and dependency-aware context selection.</li>
+<li>Integration adapters for the highest-usage agent platforms.</li>
+</ol>
+<p>Do not build billing, extensive dashboards, or broad integrations before the
+underlying policy and deployment model has been validated.</p>
+<h3 id="security-priorities">Security priorities</h3>
+<ul>
+<li>Complete a formal threat model and abuse-case review.</li>
+<li>Fuzz path handling, JSON-RPC lifecycle, parser boundaries, and policy inputs.</li>
+<li>Add tamper-resistant update and release verification.</li>
+<li>Commission an independent penetration test before production deployment.</li>
+<li>Establish vulnerability intake, severity, response, and disclosure SLAs.</li>
+<li>Produce an incident-response plan and run a tabletop exercise.</li>
+<li>Automate SBOM generation and dependency/vulnerability review.</li>
+<li>Add tenant, organization, and identity isolation tests.</li>
+<li>Define data retention and deletion controls.</li>
+<li>Establish least-privilege production access and auditable administrative
+operations.</li>
+<li>Start a SOC 2 readiness gap assessment only when customer demand justifies
+it; do not mistake a compliance project for product security.</li>
+</ul>
+<h3 id="commercial-priorities">Commercial priorities</h3>
+<ul>
+<li>Convert at least three pilots to annual contracts.</li>
+<li>Define packaging and pricing around governed developers, repositories, or
+policy coverage rather than token savings alone.</li>
+<li>Establish an implementation package with a fixed scope.</li>
+<li>Create a standard security review pack.</li>
+<li>Produce two approved case studies.</li>
+<li>Track gross retention, expansion, support cost, sales cycle, and deployment
+time.</li>
+<li>Avoid customer-specific forks; use feature flags and versioned policy.</li>
+</ul>
+<h3 id="team-plan">Team plan</h3>
+<p>Recommended first hires:</p>
+<ol>
+<li>Senior security/platform engineer: authentication, policy, audit, endpoint
+security, and distributed systems.</li>
+<li>Senior developer-product/integrations engineer: editor and agent adapters,
+onboarding, reliability, and cross-platform delivery.</li>
+<li>Product-minded enterprise engineer or solutions architect once pilots
+require repeatable deployments.</li>
+<li>Developer relations or product marketing only after retention is strong.</li>
+<li>Account executive only after the founder has personally closed repeatable
+paid pilots.</li>
+</ol>
+<p>Use advisors to add credibility, not to substitute for operators. Seek:</p>
+<ul>
+<li>A former CISO or application-security buyer.</li>
+<li>A developer-platform leader.</li>
+<li>An enterprise-security founder with fundraising and M&amp;A experience.</li>
+</ul>
+<p>Define their time, deliverables, conflicts, confidentiality, equity, and term in
+writing. Avoid ornamental advisory boards.</p>
+<h3 id="exit-criteria-5">Exit criteria</h3>
+<ul>
+<li>Three or more paid annual customers or convincingly contracted equivalents.</li>
+<li>Repeatable deployment under an agreed target time.</li>
+<li>Two referenceable customers.</li>
+<li>Independent security review completed with major findings resolved.</li>
+<li>Evidence that context reduction does not materially harm task completion.</li>
+<li>Clear expansion path from one team to the wider organization.</li>
+</ul>
+<h2 id="stage-5-seed-round-or-strategic-process">Stage 5 — seed round or strategic process</h2>
+<p>Timing: months 12–18, August 2027 to January 2028</p>
+<h3 id="choose-the-path-using-evidence">Choose the path using evidence</h3>
+<p>Pursue a seed round when:</p>
+<ul>
+<li>Retention and paid conversion are strong.</li>
+<li>The market opportunity is larger than the current product.</li>
+<li>The team wants to build an independent category leader.</li>
+<li>Additional capital can predictably accelerate integrations, sales, and
+control-plane development.</li>
+</ul>
+<p>Consider a strategic process when:</p>
+<ul>
+<li>Multiple credible buyers express interest.</li>
+<li>A platform owner can distribute the product materially faster.</li>
+<li>Integration dependency makes strategic ownership unusually valuable.</li>
+<li>The likely risk-adjusted acquisition outcome exceeds the independent plan.</li>
+<li>Investors, founders, employees, and customers can be treated fairly.</li>
+</ul>
+<p>Do not start a formal sale because fundraising is temporarily difficult. That
+usually produces weak leverage.</p>
+<h2 id="strategic-acquirer-pipeline">Strategic-acquirer pipeline</h2>
+<h3 id="buyer-hypotheses">Buyer hypotheses</h3>
+<p>These are research targets, not assertions that any company wants to acquire
+Syntaxxed.</p>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Buyer category</th>
+<th>Examples to research</th>
+<th>Strategic reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model and coding-agent platforms</td>
+<td>Anthropic, OpenAI, Microsoft/GitHub, Cursor, Cline</td>
+<td>Native context policy, enterprise trust, agent differentiation</td>
+</tr>
+<tr>
+<td>Developer platforms</td>
+<td>GitLab, JetBrains, Atlassian, JFrog, Harness, Coder, Docker</td>
+<td>Governed AI development across repositories and workspaces</td>
+</tr>
+<tr>
+<td>Cybersecurity platforms</td>
+<td>Palo Alto Networks, Cisco, CyberArk, Snyk, GitGuardian, CrowdStrike, Check Point, Google/Wiz</td>
+<td>AI data security, application security, identity and policy</td>
+</tr>
+<tr>
+<td>Gateway and infrastructure vendors</td>
+<td>Cloudflare, F5, Citrix/NetScaler, Kong, Redpanda</td>
+<td>Extend traffic/tool governance into code-context decisions</td>
+</tr>
+<tr>
+<td>Enterprise AI governance vendors</td>
+<td>Backslash, Noma, WitnessAI, Protect AI business inside Palo Alto</td>
+<td>Fill a developer-context and code-disclosure product gap</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="build-a-30-company-strategic-map">Build a 30-company strategic map</h3>
+<p>For each organization record:</p>
+<ul>
+<li>Relevant product line and executive owner.</li>
+<li>Build, partner, or buy rationale.</li>
+<li>Existing competing capability.</li>
+<li>Integration surface.</li>
+<li>Distribution advantage.</li>
+<li>Recent acquisitions and likely appetite.</li>
+<li>Internal champion or route to one.</li>
+<li>What evidence would make Syntaxxed strategically important.</li>
+<li>Conflict and information-sharing risk.</li>
+<li>Relationship stage and next action.</li>
+</ul>
+<h3 id="strategic-relationship-stages">Strategic relationship stages</h3>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Purpose</th>
+<th>Exit requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monitor</td>
+<td>Understand strategy and product movement</td>
+<td>Named owner and quarterly review</td>
+</tr>
+<tr>
+<td>Ecosystem contact</td>
+<td>Establish a credible relationship</td>
+<td>Relevant product/BD contact responds</td>
+</tr>
+<tr>
+<td>Integration</td>
+<td>Demonstrate complementary value</td>
+<td>Working integration or joint user</td>
+</tr>
+<tr>
+<td>Executive sponsor</td>
+<td>Link to roadmap and customer need</td>
+<td>Director/VP-level sponsor</td>
+</tr>
+<tr>
+<td>Commercial partnership</td>
+<td>Prove combined distribution/value</td>
+<td>Agreement, referrals, or marketplace</td>
+</tr>
+<tr>
+<td>Strategic dialogue</td>
+<td>Explore build/partner/buy choices</td>
+<td>Authorized executive conversation</td>
+</tr>
+<tr>
+<td>Formal indication</td>
+<td>Establish price/process seriousness</td>
+<td>Written non-binding indication</td>
+</tr>
+<tr>
+<td>Diligence</td>
+<td>Validate company and asset</td>
+<td>NDA, data room, timetable</td>
+</tr>
+<tr>
+<td>Competitive process</td>
+<td>Create leverage and certainty</td>
+<td>Multiple credible parties</td>
+</tr>
+<tr>
+<td>Definitive agreement</td>
+<td>Negotiate complete outcome</td>
+<td>Board/shareholder approvals and signed deal</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="relationship-strategy">Relationship strategy</h3>
+<ul>
+<li>Lead with integrations, standards work, customer evidence, or research—not
+“please acquire us.”</li>
+<li>Attend and contribute to MCP/Agentic AI Foundation events where technically
+relevant.</li>
+<li>Publish original security and context-evaluation research.</li>
+<li>Seek marketplace listings and interoperability partnerships.</li>
+<li>Give strategic contacts concise quarterly updates.</li>
+<li>Never disclose source code, customer-confidential data, detailed unpublished
+roadmap, or patentable material without a justified process and appropriate
+agreement.</li>
+<li>Assume a potential buyer may also choose to build the feature.</li>
+<li>Keep at least three buyer categories warm so one relationship cannot control
+the outcome.</li>
+</ul>
+<h3 id="acquisition-value-drivers">Acquisition value drivers</h3>
+<p>Strategic buyers will pay for assets that are faster or safer to buy than
+build:</p>
+<ul>
+<li>A retained developer distribution channel.</li>
+<li>Enterprise customers and procurement approvals.</li>
+<li>Deep integrations across competing agents.</li>
+<li>A proven low-latency policy engine.</li>
+<li>Evaluation datasets and reproducible benchmarks.</li>
+<li>Unique policy and context-decision intellectual property.</li>
+<li>A trusted security brand and research capability.</li>
+<li>A senior team that is difficult to recruit.</li>
+<li>Standards influence.</li>
+<li>High-quality telemetry about aggregate policy behavior, collected lawfully
+and without customer source content.</li>
+</ul>
+<p>Downloads without retention, a codebase without customers, or a generic proxy
+are unlikely to command a strong strategic price.</p>
+<h3 id="m-a-readiness-tasks">M&amp;A readiness tasks</h3>
+<ul>
+<li>Maintain complete IP assignments and dependency records.</li>
+<li>Keep the cap table, Companies House records, board approvals, option grants,
+and tax filings current.</li>
+<li>Avoid undocumented promises to employees, advisors, investors, or customers.</li>
+<li>Use assignable customer and supplier contracts with sensible change-of-control
+terms.</li>
+<li>Record all security incidents and their remediation.</li>
+<li>Separate customer data and secrets from diligence materials.</li>
+<li>Maintain monthly management accounts and revenue reconciliation.</li>
+<li>Track customer concentration and any unusual side letters.</li>
+<li>Document architecture, deployment, support, roadmap, and key-person risk.</li>
+<li>Prepare retention and incentive scenarios for the team.</li>
+<li>Engage specialist M&amp;A counsel before sharing a data room.</li>
+<li>Engage an M&amp;A adviser only when the expected deal size, complexity, and buyer
+competition justify the fee and process.</li>
+</ul>
+<h3 id="do-not-grant">Do not grant</h3>
+<p>Without specific legal advice and compelling value, avoid:</p>
+<ul>
+<li>Acquisition exclusivity during ordinary partnership discussions.</li>
+<li>Rights of first refusal over the whole company.</li>
+<li>Broad most-favoured-customer pricing.</li>
+<li>Unlimited IP indemnities.</li>
+<li>Ownership of general product improvements by a pilot customer.</li>
+<li>Strategic investor vetoes that block future fundraising or sale.</li>
+<li>Customer rights to source or models beyond narrowly defined escrow events.</li>
+</ul>
+<h2 id="data-room-structure">Data room structure</h2>
+<p>Create this now and maintain it monthly:</p>
+<ol>
+<li>Corporate
+<ul>
+<li>Incorporation, articles, registers, board/shareholder minutes.</li>
+</ul>
+</li>
+<li>Capitalization
+<ul>
+<li>Cap table, share issuances, options, convertibles, investor rights.</li>
+</ul>
+</li>
+<li>Finance and tax
+<ul>
+<li>Management accounts, bank records, forecasts, tax returns, R&amp;D support.</li>
+</ul>
+</li>
+<li>Intellectual property
+<ul>
+<li>Founder/employee/contractor assignments, licences, trademarks, invention
+log, open-source inventory.</li>
+</ul>
+</li>
+<li>Product and technology
+<ul>
+<li>Architecture, roadmap, release process, SBOM, uptime and quality metrics.</li>
+</ul>
+</li>
+<li>Security and privacy
+<ul>
+<li>Threat models, tests, incidents, policies, subprocessors, retention.</li>
+</ul>
+</li>
+<li>Customers and market
+<ul>
+<li>Contracts, pipeline, references, cohort data, research, competition.</li>
+</ul>
+</li>
+<li>Commercial
+<ul>
+<li>Pricing, partnerships, suppliers, insurance, material commitments.</li>
+</ul>
+</li>
+<li>People
+<ul>
+<li>Employment and advisory agreements, options, organization and hiring plan.</li>
+</ul>
+</li>
+<li>Fundraising or transaction</li>
+</ol>
+<ul>
+<li>Deck, term sheets, diligence tracker, disclosure schedule, approvals.</li>
+</ul>
+<p>Every file should have an owner, last-reviewed date, and confidentiality
+classification.</p>
+<h2 id="operating-pipelines">Operating pipelines</h2>
+<p>Maintain four separate pipelines. A contact may appear in more than one, but
+the purpose and next action must remain distinct.</p>
+<h3 id="developer-pipeline-fields">Developer pipeline fields</h3>
+<ul>
+<li>Week/cohort.</li>
+<li>Source channel.</li>
+<li>Qualified visits.</li>
+<li>Installs.</li>
+<li>Activated installations.</li>
+<li>Time to first value.</li>
+<li>Week-one retained.</li>
+<li>Week-four retained.</li>
+<li>Weekly governed requests.</li>
+<li>Gateway-enabled installations.</li>
+<li>Interviewed users.</li>
+<li>Referrals/reviews.</li>
+<li>Enterprise leads.</li>
+<li>Top failure and requested feature.</li>
+</ul>
+<h3 id="design-partner-pipeline-fields">Design-partner pipeline fields</h3>
+<ul>
+<li>Account.</li>
+<li>Segment and size.</li>
+<li>Champion, technical owner, security approver, and economic buyer.</li>
+<li>Agent platforms used.</li>
+<li>Pain and triggering event.</li>
+<li>Current disclosure/control process.</li>
+<li>Stage.</li>
+<li>Baseline metric.</li>
+<li>Proposed pilot and success metric.</li>
+<li>Security/procurement status.</li>
+<li>Commercial value.</li>
+<li>Probability.</li>
+<li>Last contact, next action, owner, and deadline.</li>
+<li>Loss reason.</li>
+</ul>
+<h3 id="investor-pipeline-fields">Investor pipeline fields</h3>
+<ul>
+<li>Fund/angel and partner.</li>
+<li>Investor category.</li>
+<li>Stage and cheque range.</li>
+<li>Lead capability.</li>
+<li>Relevant investments/conflicts.</li>
+<li>Warm introducer.</li>
+<li>Thesis fit.</li>
+<li>Stage in process.</li>
+<li>Objection.</li>
+<li>References.</li>
+<li>Last contact, next action, owner, and deadline.</li>
+<li>Probability and expected amount.</li>
+<li>Term-sheet notes.</li>
+</ul>
+<h3 id="strategic-acquirer-pipeline-fields">Strategic-acquirer pipeline fields</h3>
+<ul>
+<li>Company and business unit.</li>
+<li>Product/executive owner.</li>
+<li>Buyer category.</li>
+<li>Strategic gap and overlap.</li>
+<li>Integration opportunity.</li>
+<li>Internal champion.</li>
+<li>Relationship stage.</li>
+<li>Evidence shared.</li>
+<li>Confidentiality boundary.</li>
+<li>Recent M&amp;A pattern.</li>
+<li>Estimated strategic fit: high, medium, or low.</li>
+<li>Last contact, next action, owner, and deadline.</li>
+</ul>
+<h3 id="weekly-pipeline-discipline">Weekly pipeline discipline</h3>
+<p>Every open record must have one dated next action. Review:</p>
+<ul>
+<li>Monday: product metrics and developer cohorts.</li>
+<li>Tuesday: user interviews and design-partner pipeline.</li>
+<li>Wednesday: product/security delivery.</li>
+<li>Thursday: investor and strategic relationships.</li>
+<li>Friday: cash, hiring, risks, decisions, and written weekly update.</li>
+</ul>
+<p>Close or downgrade stale opportunities rather than letting the CRM become a
+wish list.</p>
+<h2 id="first-30-60-and-90-days">First 30, 60, and 90 days</h2>
+<h3 id="days-1-30">Days 1–30</h3>
+<ul>
+<li>Finalize licensing and incorporation/IP position.</li>
+<li>Complete clean cross-platform release testing.</li>
+<li>Add privacy-safe activation and retention analytics.</li>
+<li>Complete threat model and public security boundaries.</li>
+<li>Establish signed/provenance-aware release process.</li>
+<li>Build landing page, demo, onboarding, feedback, and enterprise-interest flow.</li>
+<li>Create product, design-partner, investor, and acquirer pipeline trackers.</li>
+<li>Identify the first 100 individual testers.</li>
+<li>Build a 50-account design-partner list.</li>
+<li>Build a 120-investor longlist but do not start the formal raise.</li>
+<li>Build a 30-company strategic map.</li>
+<li>Recruit two credible operational advisors.</li>
+<li>Prepare SEIS/EIS and R&amp;D-relief questions for professional advisers.</li>
+</ul>
+<h3 id="days-31-60">Days 31–60</h3>
+<ul>
+<li>Launch the free product.</li>
+<li>Interview at least 10 activated and five churned users.</li>
+<li>Publish the threat model and first benchmark.</li>
+<li>Release two onboarding improvements based on evidence.</li>
+<li>Start warm discovery with 10 target enterprise accounts.</li>
+<li>Obtain three technical-validation commitments.</li>
+<li>Draft deck, financial model, and data-room index.</li>
+<li>Start investor relationship-building through advice conversations, not a
+formal process.</li>
+<li>Begin two ecosystem/integration conversations.</li>
+</ul>
+<h3 id="days-61-90">Days 61–90</h3>
+<ul>
+<li>Reach 20 or more completed retained-user interviews.</li>
+<li>Produce the first cohort retention report.</li>
+<li>Decide whether the wedge and messaging are validated.</li>
+<li>Start up to five technical enterprise validations.</li>
+<li>Convert the best opportunities into written design-partner proposals.</li>
+<li>Finalize pilot terms and standard security-review material.</li>
+<li>Decide whether metrics support a fundraising launch.</li>
+<li>If yes, lock the round size, milestones, list, references, and six-week
+process calendar.</li>
+<li>If no, publish the learning, revise the product, and delay fundraising rather
+than pitching weak evidence.</li>
+</ul>
+<h2 id="risk-register-and-recommended-responses">Risk register and recommended responses</h2>
+<div class="table-wrap" role="region" aria-label="Scrollable table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Early indicator</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product is perceived as a token-compression feature</td>
+<td>Interest but low retention or willingness to deploy</td>
+<td>Lead with least-privilege context policy and measurable disclosure control</td>
+</tr>
+<tr>
+<td>Agents bypass the gateway through filesystem/shell tools</td>
+<td>High unmanaged read volume</td>
+<td>Build adapters, launch controls, and policy-aware execution integrations; state limits honestly</td>
+</tr>
+<tr>
+<td>Large vendors copy generic gateway features</td>
+<td>Similar product announcements</td>
+<td>Focus on code-specific policy, evaluations, integrations, and developer distribution</td>
+</tr>
+<tr>
+<td>Free users do not convert to enterprise leads</td>
+<td>Strong individual use but no organizational pull</td>
+<td>Add team visibility and internal-introduction workflows; interview platform/security buyers</td>
+</tr>
+<tr>
+<td>Enterprise requirements overwhelm a small team</td>
+<td>Every pilot requests bespoke deployment</td>
+<td>Narrow ICP, standardize pilot, reject non-repeatable work</td>
+</tr>
+<tr>
+<td>Security failure damages trust</td>
+<td>Disclosure incident, stale credentials, weak release process</td>
+<td>Fail closed, test boundaries, signed releases, incident process, independent review</td>
+</tr>
+<tr>
+<td>Open-core fork competes with company</td>
+<td>Cloud vendors repackage core</td>
+<td>Keep control plane, managed policy, certifications, brand, support, and enterprise integrations differentiated</td>
+</tr>
+<tr>
+<td>Closed source slows trust and adoption</td>
+<td>Security teams refuse opaque mediator</td>
+<td>Publish threat model, SBOM and tests; reconsider open-core boundary</td>
+</tr>
+<tr>
+<td>Solo-founder risk blocks investment</td>
+<td>Investors question delivery and enterprise credibility</td>
+<td>Add senior operators, strong design partners, and a clear first-hire plan</td>
+</tr>
+<tr>
+<td>Fundraising distracts from adoption</td>
+<td>Product velocity and interviews drop</td>
+<td>Time-box the raise and maintain weekly product/customer targets</td>
+</tr>
+<tr>
+<td>Early strategic interest anchors a low price</td>
+<td>One buyer requests exclusivity before traction</td>
+<td>Keep alternatives active and do not run a single-buyer process</td>
+</tr>
+<tr>
+<td>Poor corporate hygiene blocks a deal</td>
+<td>Missing assignments, unclear licence, cap-table errors</td>
+<td>Maintain the data room and quarterly legal/IP review</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="decision-gates">Decision gates</h2>
+<h3 id="gate-a-public-launch">Gate A — public launch</h3>
+<p>Pass only if:</p>
+<ul>
+<li>Product installation and removal are reliable.</li>
+<li>Security boundaries are documented.</li>
+<li>Analytics are privacy-safe.</li>
+<li>Licence/IP position is clear.</li>
+<li>Support and incident routes exist.</li>
+</ul>
+<h3 id="gate-b-enterprise-build">Gate B — enterprise build</h3>
+<p>Pass only if:</p>
+<ul>
+<li>Retained users validate the recurring problem.</li>
+<li>At least three organizations request related controls.</li>
+<li>Requirements converge around a repeatable policy/deployment model.</li>
+</ul>
+<h3 id="gate-c-primary-pre-seed">Gate C — primary pre-seed</h3>
+<p>Pass only if:</p>
+<ul>
+<li>Retention evidence is defensible.</li>
+<li>Design partners include credible champions and buyers.</li>
+<li>The use of funds reaches paid enterprise evidence.</li>
+<li>The team and security plan are credible.</li>
+</ul>
+<h3 id="gate-d-seed">Gate D — seed</h3>
+<p>Pass only if:</p>
+<ul>
+<li>Paid conversion and deployment are repeatable.</li>
+<li>Customer references exist.</li>
+<li>Expansion economics are plausible.</li>
+<li>Capital accelerates an already working motion.</li>
+</ul>
+<h3 id="gate-e-formal-acquisition-process">Gate E — formal acquisition process</h3>
+<p>Pass only if:</p>
+<ul>
+<li>At least two credible buyers could participate.</li>
+<li>The company has enough runway to say no.</li>
+<li>Corporate, IP, security, financial, and customer diligence are ready.</li>
+<li>The board has compared the independent and acquisition outcomes.</li>
+</ul>
+<h2 id="what-not-to-do">What not to do</h2>
+<ul>
+<li>Do not spend a year building SSO, dashboards, and billing before design
+partners validate the core policy product.</li>
+<li>Do not count downloads as retained users.</li>
+<li>Do not make unenforceable claims that Syntaxxed controls every agent tool.</li>
+<li>Do not use customer source code to train or benchmark without explicit,
+specific permission.</li>
+<li>Do not publish vanity token-savings claims without task-success controls.</li>
+<li>Do not let a free tier create an uncapped cloud-compute liability.</li>
+<li>Do not hire a large sales team before founder-led sales is repeatable.</li>
+<li>Do not accept an investor solely because they offer the highest valuation.</li>
+<li>Do not approach companies asking to be acquired before building leverage.</li>
+<li>Do not allow one strategic partner to restrict relationships with others.</li>
+</ul>
+<h2 id="recommended-immediate-founder-priorities">Recommended immediate founder priorities</h2>
+<p>For the next quarter, allocate attention approximately as follows:</p>
+<ul>
+<li>40% product quality, onboarding, and retention.</li>
+<li>25% developer interviews and community.</li>
+<li>20% design-partner discovery.</li>
+<li>10% company, finance, IP, and funding preparation.</li>
+<li>5% strategic ecosystem relationships.</li>
+</ul>
+<p>The priority changes after repeatable design-partner demand:</p>
+<ul>
+<li>40% enterprise product and security.</li>
+<li>25% pilots and customer success.</li>
+<li>20% hiring and management.</li>
+<li>10% fundraising and finance.</li>
+<li>5% strategic relationships.</li>
+</ul>
+<h2 id="final-recommendation">Final recommendation</h2>
+<p>The most credible route to both substantial funding and a strong outright
+acquisition is the same: build a product developers actively choose, prove that
+organizations need to govern it, and maintain multiple strategic options.</p>
+<p>The next irreversible expenditure should not be a large enterprise control
+plane. It should be the smallest set of work that proves:</p>
+<ol>
+<li>developers retain the free product;</li>
+<li>companies experience a real governance problem;</li>
+<li>Syntaxxed improves that problem without degrading developer outcomes; and</li>
+<li>a repeatable buyer will pay for shared policy, identity, audit, and control.</li>
+</ol>
+<p>Once those facts exist, the enterprise roadmap becomes financeable and the
+company becomes strategically valuable. Until then, disciplined evidence
+creation is more important than feature volume.</p>
+<p>This plan is commercial and operating guidance, not legal, tax, investment, or
+accounting advice. Use qualified UK advisers for corporate structure, SEIS/EIS,
+R&amp;D relief, employment, privacy, fundraising documents, and any transaction.</p>
+
+			</article>
+
+			<footer class="document-footer">
+				<span>Syntaxxed · Confidential working plan</span>
+				<span>Self-contained offline HTML · Source: funding-acquisition-plan.md</span>
+			</footer>
+		</main>
+	</div>
+
+	<button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+	<script>
+		(() => {
+			const progressBar = document.getElementById('reading-progress-bar');
+			const backToTop = document.getElementById('back-to-top');
+			const menuButton = document.getElementById('menu-button');
+			const printButton = document.getElementById('print-button');
+			const tocLinks = [...document.querySelectorAll('.toc-link')];
+			const sections = [...document.querySelectorAll('.content h2, .content h3')];
+
+			for (const heading of document.querySelectorAll('.content h2')) {
+				if (/^Stage d/i.test(heading.textContent.trim())) {
+					heading.classList.add('stage-heading');
+				}
+			}
+
+			const updateProgress = () => {
+				const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+				const percent = scrollable > 0 ? Math.min(100, (window.scrollY / scrollable) * 100) : 0;
+				progressBar.style.width = percent + '%';
+				backToTop.classList.toggle('visible', window.scrollY > 700);
+			};
+
+			const setActiveLink = (id) => {
+				for (const link of tocLinks) {
+					link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+				}
+			};
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const visible = entries
+						.filter((entry) => entry.isIntersecting)
+						.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+					if (visible[0]) setActiveLink(visible[0].target.id);
+				},
+				{ rootMargin: '-15% 0px -74% 0px', threshold: 0 }
+			);
+
+			for (const section of sections) observer.observe(section);
+			for (const link of tocLinks) {
+				link.addEventListener('click', () => {
+					document.body.classList.remove('navigation-open');
+					menuButton.setAttribute('aria-expanded', 'false');
+				});
+			}
+
+			menuButton.addEventListener('click', () => {
+				const open = document.body.classList.toggle('navigation-open');
+				menuButton.setAttribute('aria-expanded', String(open));
+			});
+			printButton.addEventListener('click', () => window.print());
+			backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+			window.addEventListener('scroll', updateProgress, { passive: true });
+			updateProgress();
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A plain-English creative brief for naming a developer tool that prepares controlled repository context for AI coding assistants.">
+	<meta name="color-scheme" content="light">
+	<title>Product Naming Brief — Final Creative Pass</title>
+	<style>
+		:root {
+			--ink-950: #071522;
+			--ink-900: #0d2032;
+			--ink-800: #18344e;
+			--ink-700: #2c4b65;
+			--muted: #5e7080;
+			--paper: #fffdf9;
+			--canvas: #eef3f5;
+			--line: #d7e0e4;
+			--teal: #16a68f;
+			--teal-dark: #087563;
+			--teal-soft: #e4f7f2;
+			--coral: #ef765f;
+			--coral-soft: #fff0ec;
+			--gold: #d7971f;
+			--gold-soft: #fff5d9;
+			--blue-soft: #e8f1fa;
+			--shadow: 0 18px 60px rgba(10, 31, 47, 0.1);
+			--radius: 18px;
+			--sidebar: 292px;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+		body {
+			margin: 0;
+			color: var(--ink-900);
+			background:
+				radial-gradient(circle at 88% 4%, rgba(22, 166, 143, 0.12), transparent 25rem),
+				var(--canvas);
+			font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			font-size: 16px;
+			line-height: 1.65;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		a { color: var(--teal-dark); text-underline-offset: 3px; }
+		button { font: inherit; }
+
+		.skip-link {
+			position: fixed;
+			top: 10px;
+			left: 10px;
+			z-index: 1000;
+			padding: 10px 14px;
+			color: white;
+			background: var(--ink-950);
+			border-radius: 9px;
+			transform: translateY(-150%);
+		}
+		.skip-link:focus { transform: translateY(0); }
+
+		.progress {
+			position: fixed;
+			inset: 0 0 auto;
+			z-index: 900;
+			height: 4px;
+			background: rgba(22, 166, 143, 0.12);
+		}
+		.progress span {
+			display: block;
+			width: 0;
+			height: 100%;
+			background: linear-gradient(90deg, var(--teal), var(--coral));
+		}
+
+		.sidebar {
+			position: fixed;
+			inset: 0 auto 0 0;
+			z-index: 100;
+			width: var(--sidebar);
+			padding: 34px 24px 24px;
+			color: #dce9f1;
+			background:
+				linear-gradient(155deg, rgba(22, 166, 143, 0.18), transparent 38%),
+				var(--ink-950);
+			border-right: 1px solid rgba(255, 255, 255, 0.08);
+			overflow-y: auto;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 26px;
+		}
+		.brand-mark {
+			display: grid;
+			width: 46px;
+			height: 46px;
+			place-items: center;
+			color: var(--ink-950);
+			background: linear-gradient(135deg, #63e2cd, var(--teal));
+			border-radius: 14px;
+			font-size: 22px;
+			font-weight: 900;
+		}
+		.brand-name { color: white; font-size: 18px; font-weight: 800; }
+		.brand-subtitle {
+			display: block;
+			margin-top: 2px;
+			color: #8fa6b9;
+			font-size: 10px;
+			font-weight: 750;
+			letter-spacing: 0.13em;
+			text-transform: uppercase;
+		}
+		.sidebar-label {
+			margin: 22px 8px 9px;
+			color: #758fa4;
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 0.15em;
+			text-transform: uppercase;
+		}
+		.toc { display: flex; flex-direction: column; gap: 2px; }
+		.toc a {
+			display: block;
+			padding: 7px 10px;
+			color: #a9bdcc;
+			border-left: 2px solid transparent;
+			border-radius: 0 8px 8px 0;
+			font-size: 12px;
+			line-height: 1.35;
+			text-decoration: none;
+			transition: 150ms ease;
+		}
+		.toc a:hover { color: white; background: rgba(255, 255, 255, 0.05); }
+		.toc a.active {
+			color: #67e6d1;
+			background: rgba(22, 166, 143, 0.11);
+			border-left-color: var(--teal);
+		}
+		.sidebar-note {
+			margin-top: 24px;
+			padding: 14px;
+			color: #a9bdcc;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.07);
+			border-radius: 12px;
+			font-size: 11px;
+			line-height: 1.5;
+		}
+
+		.page { min-height: 100vh; margin-left: var(--sidebar); }
+		.toolbar {
+			position: sticky;
+			top: 0;
+			z-index: 80;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 10px;
+			height: 64px;
+			padding: 0 40px;
+			background: rgba(238, 243, 245, 0.9);
+			border-bottom: 1px solid rgba(193, 207, 214, 0.75);
+			backdrop-filter: blur(14px);
+		}
+		.toolbar button,
+		.back-to-top {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 7px;
+			min-height: 38px;
+			padding: 8px 14px;
+			color: var(--ink-800);
+			background: white;
+			border: 1px solid #c9d5db;
+			border-radius: 10px;
+			box-shadow: 0 3px 12px rgba(14, 32, 54, 0.05);
+			font-size: 12px;
+			font-weight: 750;
+			cursor: pointer;
+		}
+		.toolbar button:hover,
+		.back-to-top:hover { color: var(--teal-dark); border-color: var(--teal); }
+		.menu-button { display: none !important; }
+
+		.document {
+			width: min(100% - 64px, 1080px);
+			margin: 0 auto;
+			padding: 34px 0 100px;
+		}
+
+		.hero {
+			position: relative;
+			overflow: hidden;
+			padding: clamp(36px, 6vw, 70px);
+			color: white;
+			background:
+				linear-gradient(145deg, rgba(22, 166, 143, 0.2), transparent 43%),
+				linear-gradient(320deg, rgba(239, 118, 95, 0.13), transparent 35%),
+				var(--ink-900);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 24px;
+			box-shadow: 0 26px 70px rgba(8, 22, 40, 0.18);
+		}
+		.hero::after {
+			position: absolute;
+			right: -110px;
+			bottom: -170px;
+			width: 400px;
+			height: 400px;
+			background:
+				linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+			background-size: 28px 28px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 50%;
+			content: "";
+			transform: rotate(14deg);
+		}
+		.hero-content { position: relative; z-index: 1; max-width: 820px; }
+		.eyebrow {
+			margin: 0 0 16px;
+			color: #6fe6d2;
+			font-size: 12px;
+			font-weight: 850;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+		}
+		.hero h1 {
+			margin: 0;
+			max-width: 800px;
+			color: white;
+			font-size: clamp(36px, 5.4vw, 66px);
+			line-height: 1.02;
+			letter-spacing: -0.05em;
+		}
+		.hero-summary {
+			max-width: 750px;
+			margin: 24px 0 0;
+			color: #bed0dd;
+			font-size: clamp(17px, 2vw, 21px);
+			line-height: 1.55;
+		}
+		.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+		.meta-pill {
+			display: inline-flex;
+			padding: 7px 11px;
+			color: #dce8f1;
+			background: rgba(255, 255, 255, 0.07);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 999px;
+			font-size: 11px;
+			font-weight: 650;
+		}
+
+		.content {
+			margin-top: 28px;
+			padding: clamp(26px, 4vw, 58px);
+			background: var(--paper);
+			border: 1px solid #dce4e7;
+			border-radius: 22px;
+			box-shadow: var(--shadow);
+		}
+		.content section { scroll-margin-top: 84px; }
+		.content h2 {
+			margin: 68px 0 22px;
+			padding-top: 22px;
+			color: var(--ink-950);
+			border-top: 1px solid var(--line);
+			font-size: clamp(27px, 3vw, 36px);
+			line-height: 1.16;
+			letter-spacing: -0.038em;
+		}
+		.content section:first-child h2 { margin-top: 0; padding-top: 0; border-top: 0; }
+		.content h3 {
+			margin: 0 0 8px;
+			color: var(--ink-900);
+			font-size: 18px;
+			line-height: 1.3;
+			letter-spacing: -0.018em;
+		}
+		.content p { margin: 0 0 17px; }
+		.content strong { color: var(--ink-950); }
+
+		.lede {
+			margin: 0 0 24px;
+			color: var(--ink-800);
+			font-size: 20px;
+			line-height: 1.55;
+		}
+		.one-liner {
+			margin: 24px 0;
+			padding: 25px 28px;
+			color: #123f38;
+			background: linear-gradient(135deg, var(--teal-soft), #f5fbf9);
+			border: 1px solid #b9e7dc;
+			border-left: 5px solid var(--teal);
+			border-radius: 14px;
+			font-size: 20px;
+			font-weight: 720;
+			line-height: 1.5;
+		}
+		.analogy {
+			display: grid;
+			grid-template-columns: 42px 1fr;
+			gap: 14px;
+			margin: 20px 0;
+			padding: 20px;
+			background: var(--gold-soft);
+			border: 1px solid #efd99b;
+			border-radius: 14px;
+		}
+		.analogy-mark {
+			display: grid;
+			width: 42px;
+			height: 42px;
+			place-items: center;
+			color: #6c4800;
+			background: white;
+			border-radius: 12px;
+			font-weight: 900;
+		}
+
+		.flow {
+			display: grid;
+			grid-template-columns: 1fr auto 1.25fr auto 1fr;
+			align-items: stretch;
+			gap: 12px;
+			margin: 30px 0;
+		}
+		.flow-card {
+			display: flex;
+			min-height: 144px;
+			flex-direction: column;
+			justify-content: center;
+			padding: 20px;
+			background: white;
+			border: 1px solid var(--line);
+			border-radius: 15px;
+			box-shadow: 0 8px 24px rgba(15, 39, 55, 0.06);
+		}
+		.flow-card.middle { background: var(--teal-soft); border-color: #b5e3d8; }
+		.flow-card span {
+			margin-bottom: 7px;
+			color: var(--muted);
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+		}
+		.flow-card strong { font-size: 18px; line-height: 1.3; }
+		.flow-arrow { display: grid; place-items: center; color: var(--teal-dark); font-size: 25px; }
+
+		.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 24px 0; }
+		.card {
+			padding: 22px;
+			background: white;
+			border: 1px solid var(--line);
+			border-radius: 15px;
+			box-shadow: 0 8px 24px rgba(15, 39, 55, 0.045);
+		}
+		.card p { margin: 0; color: var(--muted); font-size: 14px; }
+		.card-number {
+			display: inline-grid;
+			width: 28px;
+			height: 28px;
+			margin-bottom: 13px;
+			place-items: center;
+			color: white;
+			background: var(--ink-800);
+			border-radius: 9px;
+			font-size: 12px;
+			font-weight: 850;
+		}
+
+		.steps {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 10px;
+			margin: 26px 0;
+			counter-reset: step;
+		}
+		.step {
+			position: relative;
+			min-height: 170px;
+			padding: 20px 17px;
+			background: white;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			counter-increment: step;
+		}
+		.step::before {
+			display: grid;
+			width: 28px;
+			height: 28px;
+			margin-bottom: 14px;
+			place-items: center;
+			color: white;
+			background: var(--teal-dark);
+			border-radius: 50%;
+			content: counter(step);
+			font-size: 11px;
+			font-weight: 850;
+		}
+		.step strong { display: block; margin-bottom: 7px; line-height: 1.3; }
+		.step span { color: var(--muted); font-size: 12px; line-height: 1.45; }
+
+		.detail-levels {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 12px;
+			margin: 22px 0;
+		}
+		.detail {
+			padding: 22px;
+			border-radius: 15px;
+		}
+		.detail:nth-child(1) { background: var(--blue-soft); border: 1px solid #c7dced; }
+		.detail:nth-child(2) { background: var(--teal-soft); border: 1px solid #b7e4d9; }
+		.detail:nth-child(3) { background: var(--coral-soft); border: 1px solid #f1c8bf; }
+		.detail-kicker {
+			display: block;
+			margin-bottom: 8px;
+			color: var(--muted);
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+		}
+		.detail strong { display: block; margin-bottom: 7px; font-size: 20px; }
+		.detail p { margin: 0; color: var(--ink-700); font-size: 13px; }
+
+		.usp {
+			margin: 26px 0;
+			padding: 30px;
+			color: white;
+			background: linear-gradient(135deg, var(--ink-900), #153d4b);
+			border-radius: 17px;
+			box-shadow: 0 18px 46px rgba(7, 21, 34, 0.16);
+		}
+		.usp-label {
+			display: block;
+			margin-bottom: 11px;
+			color: #70e0cc;
+			font-size: 10px;
+			font-weight: 850;
+			letter-spacing: 0.15em;
+			text-transform: uppercase;
+		}
+		.usp p { margin: 0; color: #d2e1e9; font-size: 20px; line-height: 1.5; }
+
+		.check-list,
+		.avoid-list { display: grid; gap: 9px; margin: 20px 0; padding: 0; list-style: none; }
+		.check-list li,
+		.avoid-list li {
+			position: relative;
+			padding: 13px 16px 13px 48px;
+			background: white;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+		}
+		.check-list li::before,
+		.avoid-list li::before {
+			position: absolute;
+			top: 12px;
+			left: 14px;
+			display: grid;
+			width: 24px;
+			height: 24px;
+			place-items: center;
+			border-radius: 8px;
+			font-size: 12px;
+			font-weight: 900;
+		}
+		.check-list li::before { color: #076454; background: var(--teal-soft); content: "✓"; }
+		.avoid-list li::before { color: #9e3f2e; background: var(--coral-soft); content: "×"; }
+
+		.territories {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 12px;
+			margin: 24px 0;
+		}
+		.territory {
+			padding: 20px;
+			background: white;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+		}
+		.territory span {
+			display: block;
+			margin-top: 9px;
+			color: var(--muted);
+			font-size: 12px;
+			line-height: 1.55;
+		}
+		.word-bank {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin: 18px 0 8px;
+		}
+		.word-bank span {
+			display: inline-flex;
+			padding: 7px 11px;
+			color: var(--ink-800);
+			background: white;
+			border: 1px solid #cdd9de;
+			border-radius: 999px;
+			font-size: 12px;
+			font-weight: 650;
+		}
+
+		.table-wrap {
+			width: 100%;
+			margin: 24px 0;
+			overflow-x: auto;
+			background: white;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+		}
+		table { width: 100%; min-width: 690px; border-collapse: collapse; font-size: 13px; }
+		th {
+			padding: 13px 14px;
+			color: white;
+			background: var(--ink-800);
+			text-align: left;
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+		td { padding: 13px 14px; border-top: 1px solid #e5ecef; vertical-align: top; }
+		tbody tr:nth-child(even) { background: #f7fafb; }
+
+		.workshop {
+			margin-top: 28px;
+			padding: 28px;
+			background: linear-gradient(135deg, var(--gold-soft), #fffaf0);
+			border: 1px solid #ecd493;
+			border-radius: 16px;
+		}
+		.workshop h3 { margin-bottom: 14px; }
+		.workshop ol { margin: 0; padding-left: 22px; }
+		.workshop li { margin: 8px 0; }
+		.prompt-box {
+			margin: 18px 0 0;
+			padding: 20px;
+			color: white;
+			background: var(--ink-900);
+			border-radius: 13px;
+			font-size: 18px;
+			font-weight: 700;
+			line-height: 1.5;
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			gap: 20px;
+			padding: 28px 8px 0;
+			color: var(--muted);
+			font-size: 11px;
+		}
+		.back-to-top {
+			position: fixed;
+			right: 24px;
+			bottom: 24px;
+			z-index: 70;
+			width: 42px;
+			height: 42px;
+			padding: 0;
+			border-radius: 50%;
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(8px);
+			transition: 180ms ease;
+		}
+		.back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+		.copy-status { min-width: 96px; color: var(--teal-dark); font-size: 11px; font-weight: 700; }
+
+		@media (max-width: 1080px) {
+			:root { --sidebar: 265px; }
+			.document { width: min(100% - 40px, 980px); }
+			.steps { grid-template-columns: repeat(3, 1fr); }
+		}
+		@media (max-width: 820px) {
+			.sidebar {
+				width: min(88vw, 330px);
+				transform: translateX(-105%);
+				transition: transform 180ms ease;
+				box-shadow: 18px 0 45px rgba(5, 18, 34, 0.24);
+			}
+			body.navigation-open .sidebar { transform: translateX(0); }
+			.page { margin-left: 0; }
+			.toolbar { justify-content: space-between; padding: 0 20px; }
+			.menu-button { display: inline-flex !important; }
+			.document { width: min(100% - 28px, 760px); padding-top: 20px; }
+			.hero { border-radius: 18px; }
+			.flow { grid-template-columns: 1fr; }
+			.flow-arrow { transform: rotate(90deg); }
+			.grid,
+			.territories { grid-template-columns: repeat(2, 1fr); }
+			.steps { grid-template-columns: repeat(2, 1fr); }
+		}
+		@media (max-width: 560px) {
+			.toolbar .button-label,
+			.copy-status { display: none; }
+			.document { width: calc(100% - 20px); }
+			.hero { padding: 34px 24px 42px; }
+			.hero h1 { font-size: clamp(31px, 10vw, 40px); overflow-wrap: anywhere; }
+			.content { padding: 25px 20px 38px; }
+			.grid,
+			.steps,
+			.detail-levels,
+			.territories { grid-template-columns: 1fr; }
+			.footer { flex-direction: column; }
+		}
+
+		@media print {
+			@page { size: A4; margin: 14mm 13mm 16mm; }
+			body { color: #111827; background: white; font-size: 9.5pt; line-height: 1.42; }
+			.sidebar,
+			.toolbar,
+			.progress,
+			.back-to-top,
+			.skip-link { display: none !important; }
+			.page { margin: 0; }
+			.document { width: 100%; margin: 0; padding: 0; }
+			.hero {
+				min-height: 220mm;
+				padding: 30mm 22mm;
+				background: var(--ink-900) !important;
+				border: 0;
+				border-radius: 0;
+				box-shadow: none;
+				break-after: page;
+				print-color-adjust: exact;
+				-webkit-print-color-adjust: exact;
+			}
+			.hero h1 { font-size: 34pt; }
+			.content { margin: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
+			.content h2 { margin: 12mm 0 5mm; padding-top: 5mm; font-size: 19pt; break-after: avoid-page; }
+			.card,
+			.step,
+			.detail,
+			.territory,
+			.usp,
+			.analogy,
+			.workshop { break-inside: avoid; }
+			.grid,
+			.territories { grid-template-columns: repeat(2, 1fr); }
+			.steps { grid-template-columns: repeat(3, 1fr); }
+			.flow { grid-template-columns: 1fr auto 1.25fr auto 1fr; }
+			.footer { display: none; }
+		}
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#main-content">Skip to brief</a>
+	<div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+	<aside class="sidebar" id="sidebar" aria-label="Brief navigation">
+		<div class="brand">
+			<div class="brand-mark" aria-hidden="true">?</div>
+			<div>
+				<div class="brand-name">Name the product</div>
+				<span class="brand-subtitle">Creative brief</span>
+			</div>
+		</div>
+		<div class="sidebar-label">Contents</div>
+		<nav class="toc" aria-label="Contents">
+			<a href="#quick-version">The quick version</a>
+			<a href="#problem">The problem</a>
+			<a href="#how-it-works">How it works</a>
+			<a href="#features">Key features</a>
+			<a href="#usp">What makes it different</a>
+			<a href="#vision">Where it can grow</a>
+			<a href="#name-brief">The naming brief</a>
+			<a href="#territories">Creative territories</a>
+			<a href="#scorecard">Name scorecard</a>
+			<a href="#workshop">Workshop prompt</a>
+		</nav>
+		<div class="sidebar-note">
+			<strong>Working name: Syntaxxed</strong><br>
+			The name is deliberately treated as temporary here so the creative pass is
+			not anchored to it.
+		</div>
+	</aside>
+
+	<div class="page">
+		<header class="toolbar">
+			<button class="menu-button" id="menu-button" type="button" aria-controls="sidebar" aria-expanded="false">
+				<span aria-hidden="true">☰</span><span class="button-label">Contents</span>
+			</button>
+			<span class="copy-status" id="copy-status" aria-live="polite"></span>
+			<button id="copy-button" type="button"><span aria-hidden="true">□</span><span class="button-label">Copy prompt</span></button>
+			<button id="print-button" type="button"><span aria-hidden="true">↗</span><span class="button-label">Print / Save PDF</span></button>
+		</header>
+
+		<main class="document" id="main-content">
+			<section class="hero" aria-labelledby="document-title">
+				<div class="hero-content">
+					<p class="eyebrow">Final creative pass</p>
+					<h1 id="document-title">What are we actually naming?</h1>
+					<p class="hero-summary">
+						A plain-English guide to the product, the problem it solves and the idea a
+						great name should capture. No coding knowledge required.
+					</p>
+					<div class="meta-row">
+						<span class="meta-pill">Audience: family naming workshop</span>
+						<span class="meta-pill">Working name: Syntaxxed</span>
+						<span class="meta-pill">Goal: short, clever and credible</span>
+					</div>
+				</div>
+			</section>
+
+			<article class="content">
+				<section id="quick-version">
+					<h2>The quick version</h2>
+					<p class="lede">
+						AI coding assistants are useful, but they need to see parts of a software
+						project to help. Giving them the whole project can be wasteful, confusing
+						and risky. This product prepares only the useful parts first.
+					</p>
+					<div class="one-liner">
+						It gives an AI assistant the right code, at the right level of detail,
+						while keeping the developer in control of what is shared.
+					</div>
+					<div class="analogy">
+						<div class="analogy-mark" aria-hidden="true">A</div>
+						<div>
+							<strong>Think of it like packing a specialist's tool case.</strong><br>
+							You do not empty the entire workshop into the van. You understand the job,
+							choose the tools that matter, remove anything private, then check the case
+							before it leaves.
+						</div>
+					</div>
+
+					<div class="flow" aria-label="Product concept flow">
+						<div class="flow-card"><span>Private workspace</span><strong>The developer's code project</strong></div>
+						<div class="flow-arrow" aria-hidden="true">→</div>
+						<div class="flow-card middle"><span>The product</span><strong>Selects, simplifies, protects and previews</strong></div>
+						<div class="flow-arrow" aria-hidden="true">→</div>
+						<div class="flow-card"><span>AI assistant</span><strong>Receives focused, approved context</strong></div>
+					</div>
+
+					<h3>It is not another AI chatbot</h3>
+					<p>
+						The product does not try to replace ChatGPT, Claude, Copilot, Cursor or any
+						other coding assistant. It sits before them and improves what they are
+						allowed to see.
+					</p>
+				</section>
+
+				<section id="problem">
+					<h2>The problem</h2>
+					<div class="grid">
+						<div class="card"><span class="card-number">1</span><h3>Too much noise</h3><p>An entire codebase contains files that have nothing to do with the current task. Extra material can distract the AI and weaken its answer.</p></div>
+						<div class="card"><span class="card-number">2</span><h3>Too much exposure</h3><p>Projects can contain credentials, internal details and commercially sensitive code that should not be shared casually.</p></div>
+						<div class="card"><span class="card-number">3</span><h3>Too little visibility</h3><p>Developers often cannot easily see the exact package of information an AI tool is about to receive.</p></div>
+						<div class="card"><span class="card-number">4</span><h3>Too little control</h3><p>Most tools jump from “no access” to “read everything”. There is rarely a sensible middle ground with progressive permission.</p></div>
+					</div>
+					<p>
+						The product solves a balancing problem: an AI needs enough useful context
+						to help, but it should not automatically receive everything available.
+					</p>
+				</section>
+
+				<section id="how-it-works">
+					<h2>How it works</h2>
+					<div class="steps">
+						<div class="step"><strong>Understand the task</strong><span>The developer describes what they are trying to change or investigate.</span></div>
+						<div class="step"><strong>Find relevant files</strong><span>The product suggests the parts of the project most likely to matter.</span></div>
+						<div class="step"><strong>Choose the depth</strong><span>The developer decides whether the AI needs an outline, working logic or full source.</span></div>
+						<div class="step"><strong>Protect and prepare</strong><span>Obvious secrets are hidden and unnecessary content is reduced.</span></div>
+						<div class="step"><strong>Preview and share</strong><span>The developer reviews the exact result before copying or approving access.</span></div>
+					</div>
+
+					<h3>Three useful levels of detail</h3>
+					<div class="detail-levels">
+						<div class="detail"><span class="detail-kicker">Lowest disclosure</span><strong>Outline</strong><p>The shape of the code: names, types, structure and available functions, without the working implementation.</p></div>
+						<div class="detail"><span class="detail-kicker">Working detail</span><strong>Logic</strong><p>The important implementation, with comments and avoidable bulk removed.</p></div>
+						<div class="detail"><span class="detail-kicker">Highest disclosure</span><strong>Source</strong><p>The complete selected file, still checked for recognisable secrets before sharing.</p></div>
+					</div>
+				</section>
+
+				<section id="features">
+					<h2>Key features</h2>
+					<div class="grid">
+						<div class="card"><h3>Task-focused selection</h3><p>Finds the files most likely to help with the job instead of treating every file as equally important.</p></div>
+						<div class="card"><h3>Progressive access</h3><p>Shares the minimum useful level first, then allows deeper detail only when it is genuinely needed.</p></div>
+						<div class="card"><h3>Visible preview</h3><p>Shows the developer exactly what the AI will receive before anything is copied or approved.</p></div>
+						<div class="card"><h3>Secret redaction</h3><p>Recognises and hides many common credentials and private keys. It is a safety layer, not a promise of perfect detection.</p></div>
+						<div class="card"><h3>Local-first preparation</h3><p>Ordinary scanning and preparation happen on the developer's computer rather than uploading the repository to this product.</p></div>
+						<div class="card"><h3>Less wasted context</h3><p>Reduces irrelevant material, which can lower AI usage costs and make the assistant's attention more focused.</p></div>
+						<div class="card"><h3>Works across AI tools</h3><p>The idea is vendor-neutral. It can support different assistants rather than belonging to one model company.</p></div>
+						<div class="card"><h3>Optional agent gateway</h3><p>A compatible AI agent can request one file at a time and ask for deeper access, with the developer approving sensitive levels.</p></div>
+					</div>
+				</section>
+
+				<section id="usp">
+					<h2>What makes it different</h2>
+					<div class="usp">
+						<span class="usp-label">The central USP</span>
+						<p>
+							Most AI coding products focus on what the AI can do after it sees the code.
+							This product focuses on controlling and improving what the AI sees in the
+							first place.
+						</p>
+					</div>
+					<ul class="check-list">
+						<li><strong>Control before disclosure:</strong> selection, protection and review happen before the AI boundary.</li>
+						<li><strong>A useful middle ground:</strong> it is not simply “block access” or “share the whole repository”.</li>
+						<li><strong>Progressive trust:</strong> an assistant can start with the shape of the code and request more only when necessary.</li>
+						<li><strong>Developer ownership:</strong> the human can see, adjust and approve the context rather than surrendering control invisibly.</li>
+						<li><strong>Local and vendor-neutral:</strong> the same approach can sit in front of several AI tools without becoming another chatbot.</li>
+					</ul>
+
+					<h3>The emotional promise</h3>
+					<p>
+						The user should feel <strong>in control, clear-headed and protected</strong>—
+						not frightened, restricted or buried in security language. The product
+						should feel like a capable assistant that prepares the right material and
+						keeps the owner in charge.
+					</p>
+				</section>
+
+				<section id="vision">
+					<h2>Where it can grow</h2>
+					<p class="lede">
+						Today it is a free tool for individual developers. The larger opportunity is
+						a trusted context gateway for teams and enterprises.
+					</p>
+					<div class="table-wrap">
+						<table>
+							<thead><tr><th>Today</th><th>Tomorrow</th><th>The thread connecting both</th></tr></thead>
+							<tbody>
+								<tr><td>A developer chooses useful files</td><td>A company defines which repositories, teams and AI tools may share particular information</td><td>The right context goes to the right recipient</td></tr>
+								<tr><td>The developer previews a payload</td><td>Security teams gain policy, approvals and audit history</td><td>Disclosure is visible and accountable</td></tr>
+								<tr><td>Secrets are redacted locally</td><td>Organisation-specific classifications and controls are applied</td><td>Private material is protected before it crosses a boundary</td></tr>
+								<tr><td>One coding task in one editor</td><td>Many agents, repositories, teams and models</td><td>Context is governed independently of the AI vendor</td></tr>
+							</tbody>
+						</table>
+					</div>
+					<p>
+						A strong name must therefore work for a friendly solo-developer utility now
+						and a serious business control layer later. It should not trap the product
+						inside one editor, one AI company or the narrow idea of saving tokens.
+					</p>
+				</section>
+
+				<section id="name-brief">
+					<h2>The naming brief</h2>
+					<h3>A good name should</h3>
+					<ul class="check-list">
+						<li>Be short enough to say, type and remember easily—roughly 4 to 10 letters is ideal, although a brilliant name can stretch slightly.</li>
+						<li>Sound natural when spoken: “Install ___”, “Run ___”, “Our company uses ___”.</li>
+						<li>Have a logical connection to control, context, relevance, boundaries, ownership or trusted access.</li>
+						<li>Feel approachable to an individual developer but credible in an enterprise sales meeting.</li>
+						<li>Leave room for the product to grow from a tool into a platform or gateway.</li>
+						<li>Be distinctive enough to own as a brand, company, domain and software package after proper checks.</li>
+						<li>Reward a second look: a clean portmanteau, double meaning or subtle pun is welcome if the word still sounds believable.</li>
+					</ul>
+
+					<h3>Avoid names that</h3>
+					<ul class="avoid-list">
+						<li>Sound destructive, such as chopping, killing or stripping code.</li>
+						<li>Make the product sound like only a compressor, token saver or file-shortening utility.</li>
+						<li>Suggest it is a programming-language parser, formatter or syntax checker.</li>
+						<li>Sound like a generic AI chatbot by adding “AI” to an ordinary noun.</li>
+						<li>Promise perfect security or make the product sound like surveillance software.</li>
+						<li>Depend on awkward spelling, unexplained punctuation or a pronunciation people will debate.</li>
+						<li>Tie the brand to VS Code, MCP, one model company or another implementation detail that may change.</li>
+					</ul>
+				</section>
+
+				<section id="territories">
+					<h2>Creative territories</h2>
+					<p>
+						These are ingredients, not name suggestions. Mix ideas from different
+						territories, bend them, shorten them and look for double meanings.
+					</p>
+					<div class="territories">
+						<div class="territory"><h3>Ownership &amp; agency</h3><span>The developer remains in charge of their repository, choices and permissions.</span></div>
+						<div class="territory"><h3>Frame &amp; boundary</h3><span>The product creates a deliberate view or safe perimeter around what the AI can see.</span></div>
+						<div class="territory"><h3>Signal &amp; relevance</h3><span>Useful information is separated from noise so attention lands in the right place.</span></div>
+						<div class="territory"><h3>Layers &amp; disclosure</h3><span>Information is revealed progressively, from shape to logic to full source.</span></div>
+						<div class="territory"><h3>Gate &amp; passage</h3><span>The product is a controlled crossing point between private code and an outside assistant.</span></div>
+						<div class="territory"><h3>Pack &amp; preparation</h3><span>The right material is selected, checked and assembled for a particular job.</span></div>
+						<div class="territory"><h3>Lens &amp; focus</h3><span>The product narrows a huge codebase into the most useful view for the task.</span></div>
+						<div class="territory"><h3>Trust &amp; custody</h3><span>Private material is handled deliberately, visibly and with accountable approval.</span></div>
+						<div class="territory"><h3>Repository &amp; source</h3><span>The language can hint at code, repos, branches or source without becoming overly technical.</span></div>
+					</div>
+
+					<h3>Raw word material</h3>
+					<div class="word-bank" aria-label="Naming word bank">
+						<span>own</span><span>hold</span><span>helm</span><span>steer</span><span>claim</span><span>keep</span>
+						<span>frame</span><span>scope</span><span>edge</span><span>bound</span><span>line</span><span>fold</span>
+						<span>signal</span><span>sift</span><span>focus</span><span>core</span><span>grain</span><span>thread</span>
+						<span>gate</span><span>port</span><span>bridge</span><span>pass</span><span>key</span><span>grant</span>
+						<span>lens</span><span>view</span><span>aperture</span><span>light</span><span>reveal</span><span>layer</span>
+						<span>pack</span><span>kit</span><span>brief</span><span>case</span><span>parcel</span><span>ready</span>
+						<span>repo</span><span>source</span><span>code</span><span>branch</span><span>stack</span><span>context</span>
+					</div>
+				</section>
+
+				<section id="scorecard">
+					<h2>Name scorecard</h2>
+					<p>Score promising names from 1 to 5. A clever pun is not enough if it fails the practical tests.</p>
+					<div class="table-wrap">
+						<table>
+							<thead><tr><th>Test</th><th>Question</th><th>Why it matters</th></tr></thead>
+							<tbody>
+								<tr><td><strong>Meaning</strong></td><td>Does it connect naturally to what the product does?</td><td>The story should be explainable in one sentence.</td></tr>
+								<tr><td><strong>Memorability</strong></td><td>Would someone remember it tomorrow?</td><td>Developer tools spread through recommendation and conversation.</td></tr>
+								<tr><td><strong>Speakability</strong></td><td>Can people pronounce, spell and search for it after hearing it once?</td><td>Friction here becomes permanent.</td></tr>
+								<tr><td><strong>Credibility</strong></td><td>Can it sit on both a free extension and an enterprise proposal?</td><td>The brand needs to span the whole roadmap.</td></tr>
+								<tr><td><strong>Distinctiveness</strong></td><td>Does it sound ownable rather than generic?</td><td>Domains, trademarks, company names and search results matter.</td></tr>
+								<tr><td><strong>Stretch</strong></td><td>Will it still fit if the product expands beyond VS Code and token reduction?</td><td>A narrow name can become an expensive constraint.</td></tr>
+							</tbody>
+						</table>
+					</div>
+					<p><strong>Automatic rejection:</strong> nobody can agree how to say it, it sounds embarrassing aloud, or its connection needs a paragraph of explanation.</p>
+				</section>
+
+				<section id="workshop">
+					<h2>Workshop prompt</h2>
+					<div class="workshop">
+						<h3>A simple 35-minute naming session</h3>
+						<ol>
+							<li>Read only the quick version, USP and naming brief.</li>
+							<li>Work separately for 10 minutes. Each person writes at least 15 names—quantity first, no judging.</li>
+							<li>Share every name without defending it. Circle anything that creates an immediate reaction.</li>
+							<li>Combine or mutate the best fragments for another 10 minutes.</li>
+							<li>Score the final shortlist. Domain, company and trademark research comes after the creative work.</li>
+						</ol>
+						<div class="prompt-box" id="workshop-prompt">
+							Name the product that gives an AI assistant the right code, at the right
+							level of detail, while keeping the developer visibly in control. It begins
+							as a useful individual tool and can grow into the trusted gateway between
+							company code and every AI agent.
+						</div>
+					</div>
+					<p style="margin-top: 22px; color: var(--muted); font-size: 13px;">
+						This is a creative brief, not legal clearance. Any shortlisted name still
+						needs live domain, company, software marketplace and similar-trademark checks.
+					</p>
+				</section>
+			</article>
+
+			<footer class="footer">
+				<span>Product naming brief · Final creative pass</span>
+				<span>Self-contained offline HTML · 7 August 2026</span>
+			</footer>
+		</main>
+	</div>
+
+	<button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+	<script>
+		(() => {
+			const progressBar = document.getElementById('progress-bar');
+			const backToTop = document.getElementById('back-to-top');
+			const menuButton = document.getElementById('menu-button');
+			const copyButton = document.getElementById('copy-button');
+			const printButton = document.getElementById('print-button');
+			const copyStatus = document.getElementById('copy-status');
+			const links = [...document.querySelectorAll('.toc a')];
+			const sections = [...document.querySelectorAll('.content section[id]')];
+
+			const updateProgress = () => {
+				const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+				const percent = scrollable > 0 ? Math.min(100, (window.scrollY / scrollable) * 100) : 0;
+				progressBar.style.width = percent + '%';
+				backToTop.classList.toggle('visible', window.scrollY > 700);
+			};
+
+			const setActive = (id) => {
+				for (const link of links) {
+					link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+				}
+			};
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const visible = entries
+						.filter((entry) => entry.isIntersecting)
+						.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+					if (visible[0]) setActive(visible[0].target.id);
+				},
+				{ rootMargin: '-14% 0px -72% 0px', threshold: 0 }
+			);
+
+			for (const section of sections) observer.observe(section);
+			for (const link of links) {
+				link.addEventListener('click', () => {
+					document.body.classList.remove('navigation-open');
+					menuButton.setAttribute('aria-expanded', 'false');
+				});
+			}
+
+			menuButton.addEventListener('click', () => {
+				const open = document.body.classList.toggle('navigation-open');
+				menuButton.setAttribute('aria-expanded', String(open));
+			});
+
+			copyButton.addEventListener('click', async () => {
+				const text = document.getElementById('workshop-prompt').textContent.trim().replace(/\s+/g, ' ');
+				try {
+					await navigator.clipboard.writeText(text);
+					copyStatus.textContent = 'Prompt copied';
+				} catch {
+					copyStatus.textContent = 'Select the prompt below';
+				}
+				window.setTimeout(() => { copyStatus.textContent = ''; }, 2500);
+			});
+			printButton.addEventListener('click', () => window.print());
+			backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+			window.addEventListener('scroll', updateProgress, { passive: true });
+			updateProgress();
+		})();
+	</script>
+</body>
+</html>
