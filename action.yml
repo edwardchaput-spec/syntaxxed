@@ -1,0 +1,56 @@
+name: Syntaxxed Context Builder
+description: Build focused, redacted repository context for AI coding tools.
+author: Edward Chaput de Saintonge
+
+inputs:
+  detail:
+    description: 'Context detail: outline, logic, source'
+    required: false
+    default: 'logic'
+  intent:
+    description: 'Optional task focus used to select relevant files'
+    required: false
+  out:
+    description: 'Output filename'
+    required: false
+    default: 'syntaxxed-context.md'
+
+outputs:
+  output-path:
+    description: 'Absolute path to the generated context file'
+    value: ${{ steps.build.outputs.output-path }}
+  tokens-saved:
+    description: 'Estimated number of tokens removed'
+    value: ${{ steps.build.outputs.tokens-saved }}
+  secrets-redacted:
+    description: 'Number of secrets redacted from the payload'
+    value: ${{ steps.build.outputs.secrets-redacted }}
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+      with:
+        node-version: '22'
+
+    - name: Build repository context
+      id: build
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      env:
+        INPUT_DETAIL: ${{ inputs.detail }}
+        INPUT_INTENT: ${{ inputs.intent }}
+        INPUT_OUT: ${{ inputs.out }}
+      run: node "$GITHUB_ACTION_PATH/dist/cli/index.js"
+
+    - name: Upload prepared context
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: syntaxxed-context
+        path: ${{ steps.build.outputs.output-path }}
+        if-no-files-found: error
+
+branding:
+  icon: minimize-2
+  color: purple

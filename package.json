@@ -1,0 +1,294 @@
+{
+  "publisher": "syntaxxed",
+  "name": "syntaxxed",
+  "private": true,
+  "displayName": "Syntaxxed",
+  "description": "Build focused, redacted repository context for AI coding tools",
+  "author": "Edward Chaput de Saintonge",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edwardchaput-spec/syntaxxed.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "version": "0.3.0",
+  "preview": true,
+  "pricing": "Free",
+  "icon": "media/syntaxxed-icon.png",
+  "galleryBanner": {
+    "color": "#07111f",
+    "theme": "dark"
+  },
+  "keywords": [
+    "ai",
+    "coding agents",
+    "context",
+    "context engineering",
+    "llm",
+    "mcp",
+    "model context protocol",
+    "privacy",
+    "redaction",
+    "security",
+    "token reduction",
+    "claude",
+    "cursor"
+  ],
+  "engines": {
+    "vscode": "^1.105.0",
+    "node": ">=22"
+  },
+  "capabilities": {
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Syntaxxed requires a local or remote filesystem-backed workspace so it can enforce real-path, symlink, ignore, and file-size boundaries."
+    },
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Workspace scanning remains available, but the local MCP gateway and workspace configuration changes require Workspace Trust.",
+      "restrictedConfigurations": [
+        "syntaxxed.customRedactionRules"
+      ]
+    }
+  },
+  "categories": [
+    "Machine Learning",
+    "Other"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "syntaxxed.buildContext",
+        "title": "Build Workspace Context",
+        "category": "Syntaxxed"
+      },
+      {
+        "command": "syntaxxed.openSidebar",
+        "title": "Open Context Builder",
+        "category": "Syntaxxed"
+      },
+      {
+        "command": "syntaxxed.createConfig",
+        "title": "Create Workspace Configuration",
+        "category": "Syntaxxed",
+        "enablement": "isWorkspaceTrusted"
+      },
+      {
+        "command": "syntaxxed.openAgentGuide",
+        "title": "Open Agent Gateway Guide",
+        "category": "Syntaxxed"
+      },
+      {
+        "command": "syntaxxed.openQuickStart",
+        "title": "Open Quick Start",
+        "category": "Syntaxxed"
+      },
+      {
+        "command": "syntaxxed.refreshSidebar",
+        "title": "Rescan Workspace",
+        "category": "Syntaxxed",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "syntaxxed.enableGateway",
+        "title": "Enable MCP Gateway for Workspace",
+        "category": "Syntaxxed",
+        "enablement": "isWorkspaceTrusted"
+      },
+      {
+        "command": "syntaxxed.disableGateway",
+        "title": "Disable MCP Gateway for Workspace",
+        "category": "Syntaxxed",
+        "enablement": "isWorkspaceTrusted"
+      },
+      {
+        "command": "syntaxxed.gatewayStatus",
+        "title": "Show MCP Gateway Status",
+        "category": "Syntaxxed"
+      }
+    ],
+    "configuration": {
+      "title": "Syntaxxed",
+      "properties": {
+        "syntaxxed.tokenBudgetWarningThreshold": {
+          "type": "integer",
+          "default": 30000,
+          "minimum": 1000,
+          "maximum": 2000000,
+          "scope": "resource",
+          "description": "Show a warning before copying when the prepared context exceeds this estimated token count."
+        },
+        "syntaxxed.inputCostPerMillionTokens": {
+          "type": "number",
+          "default": 3,
+          "minimum": 0,
+          "maximum": 1000,
+          "scope": "resource",
+          "markdownDescription": "USD per 1 million input tokens used for savings estimates. The default is a representative standard coding-model input rate; set this to the model and provider you use."
+        },
+        "syntaxxed.customRedactionRules": {
+          "type": "array",
+          "default": [],
+          "maxItems": 64,
+          "scope": "resource",
+          "restricted": true,
+          "markdownDescription": "Named regular-expression rules applied to file names and prepared context before preview or clipboard export. Global matching is automatic. Example: `{ \"name\": \"Internal API key\", \"pattern\": \"\\\\bINTERNAL_API_KEY_[A-Za-z0-9]{24,}\\\\b\", \"flags\": \"i\" }`.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "pattern"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "description": "A short label for this team-specific secret format."
+              },
+              "pattern": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512,
+                "description": "JavaScript regular expression source. Do not include slash delimiters."
+              },
+              "flags": {
+                "type": "string",
+                "default": "",
+                "pattern": "^[gimsu]*$",
+                "description": "Optional JavaScript regex flags. Global matching is always enabled."
+              }
+            }
+          }
+        }
+      }
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": "**/syntaxxed.json",
+        "url": "./schemas/syntaxxed.schema.json"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "syntaxxed.quickStart",
+        "title": "Prepare safer, smaller AI context",
+        "description": "Select, preview, redact, and copy useful repository context without uploading your workspace.",
+        "steps": [
+          {
+            "id": "syntaxxed.quickStart.open",
+            "title": "Open a project and Syntaxxed",
+            "description": "Open a filesystem-backed project, then open the Syntaxxed Activity Bar view. Scanning and context preparation stay on your machine.\n[Open Syntaxxed](command:syntaxxed.openSidebar)",
+            "media": {
+              "markdown": "media/walkthrough/open.md"
+            },
+            "completionEvents": [
+              "onView:syntaxxed.sidebarView"
+            ]
+          },
+          {
+            "id": "syntaxxed.quickStart.prepare",
+            "title": "Choose, preview, and copy context",
+            "description": "Choose the context detail, narrow the selected files, preview the prepared output, then build and copy the context.\n[Open Syntaxxed](command:syntaxxed.openSidebar)",
+            "media": {
+              "markdown": "media/walkthrough/prepare.md"
+            }
+          },
+          {
+            "id": "syntaxxed.quickStart.gateway",
+            "title": "Optional: connect an MCP coding agent",
+            "description": "In a trusted workspace, the opt-in gateway gives compatible agents progressively richer, redacted file views. It is disabled until you explicitly enable it.\n[Open the gateway guide](command:syntaxxed.openAgentGuide)",
+            "media": {
+              "markdown": "media/walkthrough/gateway.md"
+            },
+            "completionEvents": [
+              "onCommand:syntaxxed.openAgentGuide"
+            ]
+          }
+        ]
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "syntaxxed",
+          "title": "Syntaxxed",
+          "icon": "media/syntaxxed-activity-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "syntaxxed": [
+        {
+          "type": "webview",
+          "id": "syntaxxed.sidebarView",
+          "name": "Context Builder",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "syntaxxed.refreshSidebar",
+          "when": "view == syntaxxed.sidebarView",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack --mode development",
+    "compile:extension": "webpack --mode development --config-name extension",
+    "compile:cli": "webpack --mode development --config-name cli",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production",
+    "package:cli": "webpack --mode production --config-name cli",
+    "package:vsix": "vsce package --allow-missing-repository --no-rewrite-relative-links",
+    "docs:funding-html": "node scripts/render-funding-plan-html.mjs",
+    "cli": "node ./dist/cli/index.js",
+    "typecheck": "tsc -p . --noEmit && tsc -p tsconfig.cli.json --noEmit",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "check": "npm run typecheck && npm run lint && npm run package",
+    "verify:release": "npm run check && npm test && npm run package:vsix && npm exec -- vsce ls --tree",
+    "audit": "npm audit --audit-level=high"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "1.105.0",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.0.0",
+    "@vscode/vsce": "^3.9.2",
+    "eslint": "^10.8.0",
+    "markdown-it": "^14.3.0",
+    "terser-webpack-plugin": "^5.6.1",
+    "ts-loader": "^9.6.2",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.65.0",
+    "webpack": "^5.109.2",
+    "webpack-cli": "^7.2.2"
+  },
+  "overrides": {
+    "brace-expansion": "^5.0.8",
+    "diff": "^8.0.4",
+    "minimatch": "^10.2.5",
+    "serialize-javascript": "^7.0.7"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "commander": "^15.0.0",
+    "ignore": "^7.0.6",
+    "web-tree-sitter": "^0.26.11",
+    "zod": "^4.4.3"
+  }
+}

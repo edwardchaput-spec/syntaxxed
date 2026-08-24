@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://syntaxxed.dev/schemas/syntaxxed.schema.json",
+  "title": "Syntaxxed workspace configuration",
+  "description": "Workspace-specific context preparation settings for Syntaxxed.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "include_comments": {
+      "type": "boolean",
+      "default": false,
+      "description": "Retain comments when Syntaxxed builds Logic or Outline context."
+    },
+    "exclude": {
+      "type": "array",
+      "default": [],
+      "maxItems": 256,
+      "description": "Additional gitignore-style patterns applied after Syntaxxed's non-overridable safety exclusions.",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      },
+      "uniqueItems": true
+    }
+  }
+}
