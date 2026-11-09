@@ -2,6 +2,7 @@
 .vscode-test/**
 .backups/**
 private/**
+releases/**
 .github/**
 out/**
 node_modules/**

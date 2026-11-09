@@ -136,7 +136,7 @@ suite('MCP Gateway', () => {
 				}
 			);
 			await client.connect(
-				transport as unknown as Parameters<Client['connect']>[0]
+				transport
 			);
 
 			const outline = resultText(

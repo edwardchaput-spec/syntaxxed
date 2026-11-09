@@ -52,3 +52,7 @@ terraform.tfstate.*
 
 # Private planning material (kept locally, never published)
 /private/
+
+# Locally built release packages
+/releases/
+*.vsix

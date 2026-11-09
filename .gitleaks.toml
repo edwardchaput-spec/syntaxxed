@@ -1,0 +1,17 @@
+# Gitleaks configuration for the CI "Scan Git history" job.
+# Keeps every default rule and skips only files that contain synthetic,
+# non-functional credentials on purpose.
+
+title = "Syntaxxed gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic test credentials and the generated bundle"
+paths = [
+  # Redaction tests need realistic-looking fake secrets to prove they are caught.
+  '''^src/test/''',
+  # Minified build output that embeds the detection regexes.
+  '''^dist/''',
+]

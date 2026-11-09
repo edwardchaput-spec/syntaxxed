@@ -449,7 +449,7 @@ export class SyntaxxedMcpGateway implements vscode.Disposable {
 		});
 		const server = this.createMcpServer();
 		await server.connect(
-			transport as unknown as Parameters<McpServer['connect']>[0]
+			transport
 		);
 
 		try {
