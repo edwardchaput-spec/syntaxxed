@@ -51,8 +51,13 @@ suite('MCP Gateway', () => {
 		);
 		await Promise.all([
 			writeFile(
-				path.join(sourceDirectory, 'unsupported.py'),
-				"def calculate():\n    return 'UNAPPROVED_PYTHON_BODY'\n",
+				path.join(sourceDirectory, 'unsupported.rb'),
+				"def calculate\n  'UNAPPROVED_RUBY_BODY'\nend\n",
+				'utf8'
+			),
+			writeFile(
+				path.join(sourceDirectory, 'pricing.py'),
+				'def calculate(total: float) -> float:\n    return total * 0.2  # UNAPPROVED_PYTHON_BODY\n',
 				'utf8'
 			),
 			writeFile(
@@ -150,13 +155,25 @@ suite('MCP Gateway', () => {
 
 			const unsupportedOutline = (await client.callTool({
 				name: 'get_file_outline',
-				arguments: { filePath: 'src/unsupported.py' },
+				arguments: { filePath: 'src/unsupported.rb' },
 			})) as CallToolResult;
 			assert.equal(unsupportedOutline.isError, true);
 			assert.equal(
-				resultText(unsupportedOutline).includes('UNAPPROVED_PYTHON_BODY'),
+				resultText(unsupportedOutline).includes('UNAPPROVED_RUBY_BODY'),
 				false
 			);
+
+			const pythonOutline = (await client.callTool({
+				name: 'get_file_outline',
+				arguments: { filePath: 'src/pricing.py' },
+			})) as CallToolResult;
+			assert.notEqual(pythonOutline.isError, true);
+			const pythonText = resultText(pythonOutline);
+			assert.equal(
+				pythonText.includes('def calculate(total: float) -> float:'),
+				true
+			);
+			assert.equal(pythonText.includes('UNAPPROVED_PYTHON_BODY'), false);
 
 			const invalidOutline = (await client.callTool({
 				name: 'get_file_outline',

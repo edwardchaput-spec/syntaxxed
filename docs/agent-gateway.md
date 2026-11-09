@@ -135,7 +135,7 @@ removes that previous entry during reconciliation.
 ### `get_file_outline`
 
 Returns declarations, types, interfaces, signatures, and structural context for
-supported JavaScript and TypeScript files while removing implementation bodies.
+JavaScript, TypeScript and Python files while removing implementation bodies.
 It is the intended first request and does not require implementation approval.
 
 The tool fails closed when the parser or grammar is unavailable, the extension
@@ -266,7 +266,7 @@ retention, and access terms apply.
 
 ### Outline does not reduce a file
 
-Structural Outline currently supports JavaScript and TypeScript families. The
+Structural Outline currently supports JavaScript, TypeScript and Python. The
 interactive workflow handles other eligible languages conservatively. The MCP
 Outline tool fails closed for unsupported or invalid files.
 

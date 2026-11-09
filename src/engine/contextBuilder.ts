@@ -59,6 +59,10 @@ const STRATEGY_BY_EXT: Record<
 	(content: string, filePath: string, preserveComments?: boolean) => string
 > = {
 	'.ts': prepareCodeLike,
+	'.mts': prepareCodeLike,
+	'.cts': prepareCodeLike,
+	'.py': prepareCodeLike,
+	'.pyi': prepareCodeLike,
 	'.tsx': prepareCodeLike,
 	'.js': prepareCodeLike,
 	'.jsx': prepareCodeLike,

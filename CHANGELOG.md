@@ -4,6 +4,18 @@ All notable changes to the extension are documented in this file.
 
 ## Unreleased
 
+### Added
+
+- **Python support.** Outline replaces Python function bodies with `...`
+  while keeping signatures, type hints, decorators, classes and docstrings, and
+  the result is still valid Python (about 67% fewer tokens on a sample of the
+  standard library). Logic removes Python comments without touching strings or
+  indentation, Task focus finds Python classes and functions, and the MCP
+  gateway serves Python outlines.
+- `.mts` and `.cts` files are now parsed as TypeScript.
+- Python virtual environments and tool caches (`.venv`, `venv`,
+  `site-packages`, `.tox`, `.nox`, `.ruff_cache`) are always skipped.
+
 ### Changed
 
 - Licensed under the PolyForm Noncommercial License 1.0.0: free for personal,

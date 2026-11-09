@@ -6,7 +6,8 @@ Syntaxxed is a VS Code extension that builds compact, reviewable context from
 your repository before you paste it into Claude, ChatGPT, Cursor or any other AI
 tool. Everything runs locally: nothing is uploaded and no model is called.
 
-- **Outline mode keeps signatures and drops function bodies.** On a typical
+- **Outline mode keeps signatures and drops function bodies** in JavaScript,
+  TypeScript and Python. On a typical
   TypeScript project that is roughly **75% fewer tokens** while the model still
   sees every type, interface, class and function signature.
 - **Secrets are redacted before anything leaves VS Code.** It catches GitHub, AWS,
@@ -30,12 +31,13 @@ tool. Everything runs locally: nothing is uploaded and no model is called.
 
 | Level | What the model gets | Typical reduction |
 | --- | --- | --- |
-| **Outline** (default) | Types, interfaces, classes and signatures; implementation bodies removed | ~75% |
+| **Outline** (default) | Types, interfaces, classes, signatures and docstrings; implementation bodies removed | ~65-75% |
 | **Logic** | Full implementation with comments and extra whitespace removed | ~5-20% |
 | **Source** | The complete file, still secret-redacted | 0% |
 
-The figures are from Syntaxxed's own source. Outline currently strips bodies
-for JavaScript and TypeScript only; other languages are included with
+The figures come from Syntaxxed's own TypeScript source (75%) and a sample of
+the Python standard library (67%). Outline strips function bodies in
+**JavaScript, TypeScript and Python**; other languages are included with
 whitespace cleanup. Token counts are estimates (about 4 characters per token),
 not provider billing figures.
 
@@ -70,7 +72,8 @@ Requires VS Code 1.105 or newer.
   recognized, so preview anything sensitive before sharing it.
 - Task focus is keyword and symbol matching, not semantic search. Treat it as
   a starting point.
-- Outline only removes function bodies in JavaScript and TypeScript for now.
+- Outline only removes function bodies in JavaScript, TypeScript and Python
+  for now.
 
 ## More
 

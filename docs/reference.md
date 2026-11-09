@@ -55,8 +55,8 @@ Source does not bypass secret detection.
 
 | Detail | Best suited to | Output |
 | --- | --- | --- |
-| **Outline** | Architecture review, navigation, and initial agent exploration | For supported JavaScript and TypeScript files, parser-validated declarations, types, interfaces, signatures, and class structure are retained while implementation bodies are removed. Agent-facing requests fail closed if Syntaxxed cannot produce a valid structural outline. |
-| **Logic** | Debugging, implementation work, and most everyday prompts | Implementations are retained. Parser-recognized JavaScript and TypeScript comments are removed without modifying strings or regular expressions. Valid JSON is compacted. Other eligible languages receive conservative whitespace normalization. |
+| **Outline** | Architecture review, navigation, and initial agent exploration | For JavaScript, TypeScript and Python files, parser-validated declarations, types, interfaces, signatures, and class structure are retained while implementation bodies are removed. Python function bodies become `...` and their docstrings are kept. Agent-facing requests fail closed if Syntaxxed cannot produce a valid structural outline. |
+| **Logic** | Debugging, implementation work, and most everyday prompts | Implementations are retained. Parser-recognized JavaScript, TypeScript and Python comments are removed without modifying strings or regular expressions. Valid JSON is compacted. Other eligible languages receive conservative whitespace normalization. |
 | **Source** | Formatting, documentation, templates, configuration, or exact-source work | The complete original file is retained before filename and content redaction. |
 
 Outline is the default: it usually produces the smallest context (around 75%
@@ -65,8 +65,11 @@ detail. Switch to Logic when the model needs to see how code works; Logic
 mainly removes comments and whitespace, so expect a modest reduction (often
 5-20%). Select Source deliberately when exact text is required.
 
-Outline currently removes implementation bodies only for JavaScript and
-TypeScript. Other file types are included with whitespace normalization.
+Outline currently removes implementation bodies for JavaScript, TypeScript
+(`.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`) and Python
+(`.py`, `.pyi`). Other file types are included with whitespace normalization.
+Python virtual environments (`.venv`, `venv`, `site-packages`) and tool caches
+are always skipped.
 
 ## Source discovery and selection
 
@@ -581,7 +584,7 @@ The tests cover:
 
 ### Outline does not reduce a file
 
-- Structural Outline currently supports JavaScript and TypeScript families.
+- Structural Outline currently supports JavaScript, TypeScript and Python.
 - Unsupported languages receive conservative treatment in the interactive
   workflow.
 - Check that the file parses successfully.

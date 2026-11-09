@@ -2,12 +2,15 @@ import * as assert from 'node:assert/strict';
 import * as vscode from 'vscode';
 import {
 	buildPayload,
+	buildSourceOutlineStrict,
 	ensureAstParserReady,
+	extractSymbols,
 	finalizeForExport,
 	initializeAstParser,
 	normalizeContextDetail,
 	prepareContent,
 	scoreFilesForIntent,
+	supportsStructuralOutline,
 	type PreparedFile,
 } from '../engine';
 import { buildPreviewUri } from '../previewProvider';
@@ -112,6 +115,107 @@ suite('Engine', () => {
 
 		assert.equal(prepared.includes('return 42'), false);
 		assert.equal(prepared.includes('calculate(): number {}'), true);
+	});
+
+	suite('Python', () => {
+		const pythonSource = [
+			'"""Billing helpers."""',
+			'import math',
+			'',
+			'RATE = 0.2  # default tax rate',
+			'',
+			'',
+			'@dataclass',
+			'class Invoice:',
+			'    total: float',
+			'',
+			'    def tax(self, rate: float = RATE) -> float:',
+			'        """Return the tax owed."""',
+			'        # multiply carefully',
+			'        return math.ceil(self.total * rate)',
+			'',
+			'    async def send(self, to: str) -> None:',
+			'        def build():',
+			'            return to',
+			'        await deliver(build())',
+			'',
+			'',
+			'def total(items: list[float]) -> float: return sum(items)',
+		].join('\n');
+
+		test('outline keeps signatures and docstrings but drops bodies', async () => {
+			assert.equal(await ensureAstParserReady(), true);
+			const outline = prepareContent(pythonSource, 'billing.py', 'outline');
+
+			const expected = [
+				'"""Billing helpers."""',
+				'import math',
+				'',
+				'RATE = 0.2',
+				'',
+				'@dataclass',
+				'class Invoice:',
+				'    total: float',
+				'',
+				'    def tax(self, rate: float = RATE) -> float:',
+				'        """Return the tax owed."""',
+				'        ...',
+				'',
+				'    async def send(self, to: str) -> None:',
+				'        ...',
+				'',
+				'def total(items: list[float]) -> float: ...',
+			].join('\n');
+			assert.equal(outline, expected);
+			assert.equal(supportsStructuralOutline('stubs/billing.pyi'), true);
+		});
+
+		test('strict outline output is still valid Python', async () => {
+			assert.equal(await ensureAstParserReady(), true);
+			const strict = buildSourceOutlineStrict(pythonSource, 'billing.py');
+			assert.equal(strict.includes('return math.ceil'), false);
+			// Re-parsing the outline must succeed without syntax errors.
+			assert.doesNotThrow(() =>
+				buildSourceOutlineStrict(strict, 'billing.py')
+			);
+		});
+
+		test('strict outline refuses invalid Python', async () => {
+			assert.equal(await ensureAstParserReady(), true);
+			assert.throws(
+				() => buildSourceOutlineStrict('def broken(:\n    pass\n', 'x.py'),
+				/invalid syntax/
+			);
+		});
+
+		test('logic removes comments but keeps strings and indentation', async () => {
+			assert.equal(await ensureAstParserReady(), true);
+			const source = [
+				'def greet(name):',
+				'    # say hello',
+				'    message = "# not a comment"',
+				'    return message  # trailing',
+			].join('\n');
+
+			assert.equal(
+				prepareContent(source, 'greet.py', 'logic'),
+				[
+					'def greet(name):',
+					'',
+					'    message = "# not a comment"',
+					'    return message',
+				].join('\n')
+			);
+		});
+
+		test('task focus finds Python classes and functions', async () => {
+			assert.equal(await ensureAstParserReady(), true);
+			const symbols = extractSymbols(pythonSource, 'billing.py');
+			assert.deepEqual(
+				[...symbols].sort(),
+				['Invoice', 'build', 'send', 'tax', 'total'].sort()
+			);
+		});
 	});
 
 	test('export finalization redacts file labels and file content', () => {

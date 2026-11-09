@@ -18,6 +18,12 @@ export const IGNORED_DIRECTORY_NAMES = new Set([
 	'__pycache__',
 	'.pytest_cache',
 	'.mypy_cache',
+	'.ruff_cache',
+	'.venv',
+	'venv',
+	'.tox',
+	'.nox',
+	'site-packages',
 	'vendor',
 	'target', // Rust / Java
 	'bin',

@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import { Language, Parser, type Node } from 'web-tree-sitter';
 
-type GrammarKey = 'typescript' | 'tsx' | 'javascript';
+type GrammarKey = 'typescript' | 'tsx' | 'javascript' | 'python';
 
 const BODY_NODE_TYPES = new Set([
 	'method_definition',
@@ -27,16 +27,27 @@ const SYMBOL_NODE_TYPES = new Set([
 	'type_alias_declaration',
 	'enum_declaration',
 	'variable_declarator',
+	// Python
+	'function_definition',
+	'class_definition',
 ]);
 
-const JS_TS_EXTENSIONS = new Set([
-	'.ts',
-	'.tsx',
-	'.js',
-	'.jsx',
-	'.mjs',
-	'.cjs',
-]);
+/** Python Outline keeps a function's docstring and replaces the rest with `...`. */
+const PYTHON_FUNCTION_TYPE = 'function_definition';
+const PYTHON_BODY_PLACEHOLDER = '...';
+
+const GRAMMAR_BY_EXTENSION: Readonly<Record<string, GrammarKey>> = {
+	'.ts': 'typescript',
+	'.mts': 'typescript',
+	'.cts': 'typescript',
+	'.tsx': 'tsx',
+	'.js': 'javascript',
+	'.jsx': 'javascript',
+	'.mjs': 'javascript',
+	'.cjs': 'javascript',
+	'.py': 'python',
+	'.pyi': 'python',
+};
 
 let initialized = false;
 let initPromise: Promise<void> | null = null;
@@ -51,28 +62,20 @@ function clearParsers(): void {
 }
 
 function grammarForExtension(ext: string): GrammarKey | null {
-	switch (ext) {
-		case '.ts':
-			return 'typescript';
-		case '.tsx':
-			return 'tsx';
-		case '.js':
-		case '.jsx':
-		case '.mjs':
-		case '.cjs':
-			return 'javascript';
-		default:
-			return null;
-	}
+	return GRAMMAR_BY_EXTENSION[ext] ?? null;
 }
 
-function isJsTsFile(filePath: string): boolean {
-	return JS_TS_EXTENSIONS.has(path.extname(filePath).toLowerCase());
+function grammarForFile(filePath: string): GrammarKey | null {
+	return grammarForExtension(path.extname(filePath).toLowerCase());
+}
+
+function isParsedFile(filePath: string): boolean {
+	return grammarForFile(filePath) !== null;
 }
 
 /** Whether Syntaxxed can build a parser-validated Outline for this file. */
 export function supportsStructuralOutline(filePath: string): boolean {
-	return isJsTsFile(filePath);
+	return isParsedFile(filePath);
 }
 
 /**
@@ -97,6 +100,7 @@ export function initializeAstParser(wasmDir: string): Promise<void> {
 			typescript: path.join(wasmDir, 'tree-sitter-typescript.wasm'),
 			tsx: path.join(wasmDir, 'tree-sitter-tsx.wasm'),
 			javascript: path.join(wasmDir, 'tree-sitter-javascript.wasm'),
+			python: path.join(wasmDir, 'tree-sitter-python.wasm'),
 		};
 
 		for (const [key, wasmPath] of Object.entries(grammarFiles) as [
@@ -158,8 +162,64 @@ interface TextReplacement {
 	replacement: string;
 }
 
-function collectBodyReplacements(node: Node): TextReplacement[] {
+/** The docstring statement at the start of a Python block, if any. */
+function pythonDocstring(body: Node): Node | null {
+	const first = body.namedChildren.find(
+		(child) => child !== null && child.type !== COMMENT_NODE_TYPE
+	);
+	if (first?.type !== 'expression_statement') {
+		return null;
+	}
+	const expression = first.namedChildren[0];
+	return expression?.type === 'string' && first.namedChildren.length === 1
+		? first
+		: null;
+}
+
+/**
+ * Replace a Python function body with `...`, keeping its docstring. The result
+ * is still valid Python: `def f(x: int) -> str:` followed by the docstring (if
+ * any) and `...` at the body's indentation.
+ */
+function pythonBodyReplacement(
+	fn: Node,
+	body: Node,
+	source: string
+): TextReplacement {
+	const whole: TextReplacement = {
+		start: body.startIndex,
+		end: body.endIndex,
+		replacement: PYTHON_BODY_PLACEHOLDER,
+	};
+	const docstring = pythonDocstring(body);
+	if (!docstring || docstring.startPosition.row === fn.startPosition.row) {
+		return whole;
+	}
+	const lineStart = source.lastIndexOf('\n', docstring.startIndex - 1) + 1;
+	const indent = source.slice(lineStart, docstring.startIndex);
+	if (!/^[ \t]*$/.test(indent)) {
+		return whole;
+	}
+	return {
+		start: docstring.endIndex,
+		end: body.endIndex,
+		replacement: `\n${indent}${PYTHON_BODY_PLACEHOLDER}`,
+	};
+}
+
+function collectBodyReplacements(
+	node: Node,
+	source: string
+): TextReplacement[] {
 	const replacements: TextReplacement[] = [];
+
+	if (node.type === PYTHON_FUNCTION_TYPE) {
+		const body = node.childForFieldName('body');
+		if (body) {
+			// Nested functions and classes live inside the body being replaced.
+			return [pythonBodyReplacement(node, body, source)];
+		}
+	}
 
 	if (BODY_NODE_TYPES.has(node.type)) {
 		const body = findFunctionBody(node);
@@ -181,7 +241,7 @@ function collectBodyReplacements(node: Node): TextReplacement[] {
 	}
 
 	for (const child of node.children) {
-		replacements.push(...collectBodyReplacements(child));
+		replacements.push(...collectBodyReplacements(child, source));
 	}
 
 	return replacements;
@@ -246,15 +306,15 @@ function collectSymbols(node: Node, out: string[]): void {
 
 /**
  * Extract declared symbol names (classes, functions, methods, interfaces,
- * type aliases, enums, variables) from a JS/TS file. Returns an empty array
- * when the parser is unavailable or the file is not JS/TS.
+ * type aliases, enums, variables) from a JS, TS or Python file. Returns an empty array
+ * when the parser is unavailable or the language is not supported.
  */
 export function extractSymbols(content: string, filePath: string): string[] {
-	if (!initialized || !isJsTsFile(filePath)) {
+	if (!initialized || !isParsedFile(filePath)) {
 		return [];
 	}
 
-	const grammar = grammarForExtension(path.extname(filePath).toLowerCase());
+	const grammar = grammarForFile(filePath);
 	const parser = grammar ? parsers[grammar] : undefined;
 	if (!parser) {
 		return [];
@@ -290,11 +350,11 @@ export function buildSourceOutline(content: string, filePath: string): string {
 		);
 		return content;
 	}
-	if (!isJsTsFile(filePath)) {
+	if (!isParsedFile(filePath)) {
 		return content;
 	}
 
-	const grammar = grammarForExtension(path.extname(filePath).toLowerCase());
+	const grammar = grammarForFile(filePath);
 	if (!grammar) {
 		return content;
 	}
@@ -311,7 +371,7 @@ export function buildSourceOutline(content: string, filePath: string): string {
 		}
 
 		try {
-			const replacements = collectBodyReplacements(tree.rootNode);
+			const replacements = collectBodyReplacements(tree.rootNode, content);
 			return applyReplacements(content, replacements);
 		} finally {
 			tree.delete();
@@ -333,14 +393,14 @@ export function buildSourceOutlineStrict(
 	if (!initialized) {
 		throw new Error('The structural Outline parser is unavailable.');
 	}
-	if (!isJsTsFile(filePath)) {
+	if (!isParsedFile(filePath)) {
 		throw new Error(
 			'Outline is not supported for this file type. Request Logic or Source ' +
 				'so the developer can approve implementation access.'
 		);
 	}
 
-	const grammar = grammarForExtension(path.extname(filePath).toLowerCase());
+	const grammar = grammarForFile(filePath);
 	const parser = grammar ? parsers[grammar] : undefined;
 	if (!parser) {
 		throw new Error('The structural Outline grammar is unavailable.');
@@ -364,7 +424,7 @@ export function buildSourceOutlineStrict(
 		}
 		return applyReplacements(
 			content,
-			collectBodyReplacements(tree.rootNode)
+			collectBodyReplacements(tree.rootNode, content)
 		);
 	} finally {
 		tree.delete();
@@ -372,16 +432,16 @@ export function buildSourceOutlineStrict(
 }
 
 /**
- * Remove only parser-recognized comments from JavaScript and TypeScript.
+ * Remove only parser-recognized comments from JavaScript, TypeScript and Python.
  * String, template-literal, and regular-expression contents are never scanned
  * with text regexes, so comment-like text inside literals remains unchanged.
  */
 export function removeCodeComments(content: string, filePath: string): string {
-	if (!initialized || !isJsTsFile(filePath)) {
+	if (!initialized || !isParsedFile(filePath)) {
 		return content;
 	}
 
-	const grammar = grammarForExtension(path.extname(filePath).toLowerCase());
+	const grammar = grammarForFile(filePath);
 	const parser = grammar ? parsers[grammar] : undefined;
 	if (!parser) {
 		return content;
