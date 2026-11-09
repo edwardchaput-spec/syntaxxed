@@ -91,6 +91,39 @@ suite('Secret scanner', () => {
 		});
 	});
 
+	test('does not redact ordinary code that assigns or reads credentials', () => {
+		const text = [
+			'const apiKey = getConfiguredValue(',
+			'this.authToken =',
+			'\toptions.authToken ?? randomBytes(32).toString("base64url");',
+			'const password = userPassword;',
+			'password = os.environ["DB_PASSWORD"]',
+			'let secretKey: Uint8Array;',
+			'accessToken: Promise<string>;',
+			'if (password == confirmPassword) {}',
+			'const apiKey = undefined;',
+			'auth_token = DEFAULT_AUTH_TOKEN',
+		].join('\n');
+
+		assert.deepEqual(redactSecrets(text), {
+			redactedText: text,
+			secretCount: 0,
+		});
+	});
+
+	test('still redacts unquoted literal values in config-style files', () => {
+		const cases = [
+			'password=supersecretvalue',
+			'API_KEY=aB3dE5fG7hJ9kL',
+			'db_password: hunter2hunter2',
+		];
+		for (const line of cases) {
+			const result = redactSecrets(line);
+			assert.equal(result.secretCount, 1, line);
+			assert.equal(result.redactedText, '[REDACTED_SECRET]', line);
+		}
+	});
+
 	test('counts overlapping detectors as one secret span', () => {
 		const token = `ghp_${repeated('A', 36)}`;
 		const result = redactSecrets(`api_key=${token}`);

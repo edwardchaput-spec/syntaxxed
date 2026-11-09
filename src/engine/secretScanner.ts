@@ -125,12 +125,21 @@ const SECRET_PATTERNS: readonly SecretPattern[] = [
 	{
 		expression:
 			new RegExp(
-				String.raw`\b(?:[A-Z0-9]+[_-])*(?:api[_-]?key|apikey|secret[_-]?(?:key|token)|access[_-]?token|auth[_-]?token|client[_-]?secret|private[_-]?key|password|passwd|pwd|database[_-]?url|connection[_-]?string|webhook[_-]?secret|signing[_-]?secret)\b\s*[:=]\s*(?:"([^"\r\n]{8,${MAX_GENERIC_SECRET_LENGTH}})"|'([^'\r\n]{8,${MAX_GENERIC_SECRET_LENGTH}})'|([^\s,;}\]]{8,${MAX_GENERIC_SECRET_LENGTH}}))`,
+				// Separator whitespace is limited to spaces and tabs so a match can
+				// never jump to the next line, and `==`/`=>` are not assignments.
+				String.raw`\b(?:[A-Z0-9]+[_-])*(?:api[_-]?key|apikey|secret[_-]?(?:key|token)|access[_-]?token|auth[_-]?token|client[_-]?secret|private[_-]?key|password|passwd|pwd|database[_-]?url|connection[_-]?string|webhook[_-]?secret|signing[_-]?secret)\b[ \t]*[:=](?![=>])[ \t]*(?:"([^"\r\n]{8,${MAX_GENERIC_SECRET_LENGTH}})"|'([^'\r\n]{8,${MAX_GENERIC_SECRET_LENGTH}})'|([^\s,;}\]]{8,${MAX_GENERIC_SECRET_LENGTH}}))`,
 				'gi'
 			),
 		shouldRedact: (match) => {
-			const value = match[1] ?? match[2] ?? match[3] ?? '';
-			return !isSafeReferenceOrPlaceholder(value);
+			const quoted = match[1] ?? match[2];
+			if (quoted !== undefined) {
+				return !isSafeReferenceOrPlaceholder(quoted);
+			}
+			const unquoted = match[3] ?? '';
+			return (
+				!isSafeReferenceOrPlaceholder(unquoted) &&
+				!isCodeExpression(unquoted)
+			);
 		},
 	},
 ];
@@ -220,6 +229,37 @@ function isSafeReferenceOrPlaceholder(value: string): boolean {
 		SECRET_REFERENCE_PATTERN.test(normalized) ||
 		PLACEHOLDER_PATTERN.test(normalized)
 	);
+}
+
+const CODE_LITERAL_PATTERN = /^(?:undefined|null|true|false|none|nil)$/i;
+/** An identifier immediately followed by member access, a call, an index, or generics. */
+const CODE_ACCESS_PATTERN = /^[A-Za-z_$][\w$]*(?:\?\.|\.|\(|\[|<)/;
+const IDENTIFIER_PATTERN = /^[A-Za-z_$][\w$]*$/;
+
+/**
+ * Unquoted assignment values that are clearly code rather than literal
+ * credentials, e.g. `apiKey = getConfig(`, `token = options.authToken`,
+ * `password = userPassword`, or `secretKey: Uint8Array`. Plain lowercase
+ * words and random-looking strings are still redacted.
+ */
+function isCodeExpression(value: string): boolean {
+	if (CODE_LITERAL_PATTERN.test(value) || CODE_ACCESS_PATTERN.test(value)) {
+		return true;
+	}
+	if (!IDENTIFIER_PATTERN.test(value)) {
+		return false;
+	}
+	const digitCount = value.match(/\d/g)?.length ?? 0;
+	const hasWordBoundary = /[a-z0-9][A-Z]|[A-Za-z0-9]_[A-Za-z]/.test(value);
+	// Real identifiers split into short words; token bodies such as
+	// `ghp_AAAA…` contain one long unbroken run.
+	const longestWord = Math.max(
+		...value
+			.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+			.split(/[\s_$]+/)
+			.map((word) => word.length)
+	);
+	return hasWordBoundary && digitCount <= 2 && longestWord <= 16;
 }
 
 function mergeRanges(ranges: readonly TextRange[]): TextRange[] {
