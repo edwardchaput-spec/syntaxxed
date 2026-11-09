@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import {
 	buildSelectionContext,
 	buildWorkspaceContext,
+	DEFAULT_CONTEXT_DETAIL,
 	DEFAULT_SYNTAXXED_CONFIG,
 	ensureAstParserReady,
 	estimateTokens,
@@ -184,7 +185,7 @@ export class SyntaxxedSidebarProvider
 	private files: PreparedFile[] = [];
 	private included = new Set<string>();
 	private skippedCount = 0;
-	private contextDetail: ContextDetail = 'logic';
+	private contextDetail: ContextDetail = DEFAULT_CONTEXT_DETAIL;
 	private config = createDefaultConfig();
 	private extensionSettings: SyntaxxedExtensionSettings = getExtensionSettings();
 	private refreshVersion = 0;
@@ -654,8 +655,8 @@ export class SyntaxxedSidebarProvider
 		<div class="field">
 			<label for="contextDetail">Context detail</label>
 			<select id="contextDetail" aria-label="Context detail">
-				<option value="outline">Outline - structure and signatures</option>
-				<option value="logic" selected>Logic - implementation without comments</option>
+				<option value="outline" selected>Outline - structure and signatures</option>
+				<option value="logic">Logic - implementation without comments</option>
 				<option value="source">Source - complete file content</option>
 			</select>
 		</div>
@@ -713,7 +714,7 @@ export class SyntaxxedSidebarProvider
 				<span class="value" id="roiSessionReduction">0.0%</span>
 			</div>
 			<div class="roi-pill money">
-				<span class="label">Estimated cost saved</span>
+				<span class="label" title="Estimated input cost of the full selected files minus the prepared context">Est. cost vs. full files</span>
 				<span class="value" id="roiSessionMoney">$0.00</span>
 			</div>
 		</div>

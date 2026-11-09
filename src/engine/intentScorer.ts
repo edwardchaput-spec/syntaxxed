@@ -30,12 +30,28 @@ const SCORE_SYMBOL_PARTIAL = 6;
  */
 const symbolCache = new WeakMap<PreparedFile, string[]>();
 
+/**
+ * Common English and task-phrasing words that carry no file-relevance signal.
+ * Without this, "in" matches `index.ts` and "fix the bug in auth" ranks every
+ * file whose name contains "in", "the", or "fix".
+ */
+const STOPWORDS = new Set([
+	'a', 'about', 'add', 'after', 'all', 'an', 'and', 'any', 'are', 'as', 'at',
+	'be', 'before', 'bug', 'but', 'by', 'can', 'change', 'code', 'do', 'does',
+	'file', 'files', 'fix', 'for', 'from', 'get', 'has', 'have', 'how', 'i',
+	'if', 'implement', 'in', 'into', 'is', 'it', 'its', 'make', 'me', 'my',
+	'new', 'not', 'of', 'on', 'or', 'our', 'out', 'please', 'should', 'so',
+	'some', 'that', 'the', 'their', 'then', 'there', 'this', 'to', 'up',
+	'update', 'use', 'we', 'when', 'where', 'which', 'why', 'will', 'with',
+	'work', 'would', 'you', 'your',
+]);
+
 /** Split a free-text query into lowercase search words. */
 function tokenizeQuery(query: string): string[] {
 	return query
 		.toLowerCase()
 		.split(/[^a-z0-9]+/)
-		.filter((word) => word.length >= 2);
+		.filter((word) => word.length >= 2 && !STOPWORDS.has(word));
 }
 
 /** Split an identifier into lowercase word parts (camelCase, snake_case, kebab-case). */

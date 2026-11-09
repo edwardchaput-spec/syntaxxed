@@ -1,6 +1,7 @@
 .vscode/**
 .vscode-test/**
 .backups/**
+private/**
 .github/**
 out/**
 node_modules/**
@@ -8,26 +9,17 @@ src/**
 scripts/**
 action.yml
 dist/cli/**
-docs/development-log.md
 docs/enterprise-roadmap.md
-docs/funding-acquisition-plan.md
-docs/Repown-Funding-Acquisition-Plan.html
-docs/Product-Naming-Brief.html
-docs/release-checklist.md
-docs/reddit-launch-kit.md
 docs/telemetry.md
-docs/_inbox/**
 .gitignore
 .yarnrc
 webpack.config.js
-vsc-extension-quickstart.md
 **/tsconfig.json
 tsconfig.cli.json
 **/eslint.config.mjs
 **/*.map
 **/*.ts
 **/.vscode-test.*
-media/repown-marketplace-icon.svg
 
 # Never publish local credentials or signing material.
 **/.env

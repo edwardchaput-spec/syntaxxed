@@ -12,8 +12,13 @@
   <rect width="256" height="256" rx="56" fill="url(#background)"/>
   <rect x="28" y="28" width="200" height="200" rx="52" fill="url(#mark)"/>
   <rect x="38" y="38" width="180" height="180" rx="43" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2"/>
-  <text x="128" y="171" fill="#07111f" font-family="Segoe UI, Arial, sans-serif" font-size="124" font-weight="800" text-anchor="middle">R</text>
-  <rect x="84" y="198" width="30" height="6" rx="3" fill="#ffffff" fill-opacity="0.88"/>
-  <rect x="119" y="198" width="18" height="6" rx="3" fill="#f3a712"/>
-  <rect x="142" y="198" width="30" height="6" rx="3" fill="#ffffff" fill-opacity="0.88"/>
+  <g fill="none" stroke="#07111f" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Braces: source code -->
+    <path d="M94 70 C78 70 72 78 72 94 L72 112 C72 122 66 128 56 128 C66 128 72 134 72 144 L72 162 C72 178 78 186 94 186"/>
+    <path d="M162 70 C178 70 184 78 184 94 L184 112 C184 122 190 128 200 128 C190 128 184 134 184 144 L184 162 C184 178 178 186 162 186"/>
+    <!-- Lines getting shorter: context trimmed to what matters -->
+    <path d="M104 100 L152 100"/>
+    <path d="M104 128 L140 128"/>
+  </g>
+  <path d="M104 156 L122 156" fill="none" stroke="#f3a712" stroke-width="14" stroke-linecap="round"/>
 </svg>

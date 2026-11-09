@@ -6,6 +6,7 @@ import * as path from 'node:path';
 import { Command, Option } from 'commander';
 import {
 	buildWorkspaceContext,
+	DEFAULT_CONTEXT_DETAIL,
 	initializeAstParser,
 	type ContextBuildResult,
 	type ContextDetail,
@@ -274,7 +275,7 @@ export function createCliProgram(
 		.addOption(
 			new Option('-l, --detail <level>', 'context detail level')
 				.choices(CONTEXT_DETAILS)
-				.default('logic')
+				.default(DEFAULT_CONTEXT_DETAIL)
 		)
 		.option('-i, --intent <query>', 'select files relevant to this task')
 		.requiredOption(

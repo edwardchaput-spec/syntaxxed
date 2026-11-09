@@ -12,7 +12,7 @@ const CONTEXT_DETAILS = new Set<ContextDetail>([
 	'source',
 ]);
 
-export const DEFAULT_CONTEXT_DETAIL: ContextDetail = 'logic';
+export const DEFAULT_CONTEXT_DETAIL: ContextDetail = 'outline';
 
 /**
  * Normalizes values received from UI, CLI, configuration, and URI boundaries.

@@ -8,7 +8,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const COPYRIGHT_BANNER =
 	'Copyright (c) 2026 Edward Chaput de Saintonge.\n' +
-	'Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.';
+	'Licensed under the PolyForm Noncommercial License 1.0.0. Commercial use requires a separate licence. See LICENSE and NOTICE.';
 const COPYRIGHT_COMMENT_PATTERN =
 	/Copyright \(c\) 2026 Edward Chaput de Saintonge/;
 

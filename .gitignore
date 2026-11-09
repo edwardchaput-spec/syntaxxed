@@ -49,3 +49,6 @@ terraform.tfstate.*
 *.tfvars
 *.auto.tfvars
 !*.tfvars.example
+
+# Private planning material (kept locally, never published)
+/private/

@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { appendFile, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import * as path from 'node:path';
 
 /** Server key agents see in their MCP configuration. */
@@ -63,6 +63,47 @@ function entryMatches(
 
 function serializeConfig(config: Record<string, unknown>): string {
 	return JSON.stringify(config, null, 2) + '\n';
+}
+
+/**
+ * Keep the generated MCP files (which hold a bearer credential) out of git by
+ * listing them in the repository's local `.git/info/exclude`. This never
+ * touches the user's committed `.gitignore`. Best effort: workspaces that are
+ * not plain git repositories are left alone.
+ */
+export async function excludeMcpRegistrationsFromGit(
+	workspaceRoot: string
+): Promise<void> {
+	try {
+		const gitDir = path.join(workspaceRoot, '.git');
+		if (!(await stat(gitDir)).isDirectory()) {
+			return;
+		}
+		const infoDir = path.join(gitDir, 'info');
+		const excludePath = path.join(infoDir, 'exclude');
+		let existing = '';
+		try {
+			existing = await readFile(excludePath, 'utf8');
+		} catch {
+			await mkdir(infoDir, { recursive: true });
+		}
+		const present = new Set(existing.split(/\r?\n/).map((line) => line.trim()));
+		const missing = ['/.mcp.json', '/.cursor/mcp.json'].filter(
+			(entry) => !present.has(entry)
+		);
+		if (missing.length === 0) {
+			return;
+		}
+		const prefix =
+			existing.length > 0 && !existing.endsWith('\n') ? '\n' : '';
+		await appendFile(
+			excludePath,
+			`${prefix}# Syntaxxed gateway (contains a local bearer credential)\n${missing.join('\n')}\n`,
+			'utf8'
+		);
+	} catch {
+		// Not a git repository, or exclude is not writable.
+	}
 }
 
 /**
@@ -150,6 +191,10 @@ export async function ensureMcpRegistrations(
 		} catch {
 			result.failed.push(relativePath);
 		}
+	}
+
+	if (result.created.length > 0 || result.updated.length > 0) {
+		await excludeMcpRegistrationsFromGit(workspaceRoot);
 	}
 
 	return result;

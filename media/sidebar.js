@@ -57,7 +57,7 @@ function selectedPaths() {
 
 function currentDetail() {
 	const value = elements.detail.value;
-	return value === 'outline' || value === 'source' ? value : 'logic';
+	return value === 'logic' || value === 'source' ? value : 'outline';
 }
 
 function setBusy(isBusy) {

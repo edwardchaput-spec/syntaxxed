@@ -1,5 +1,5 @@
 import * as assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import * as path from 'node:path';
 import {
@@ -62,6 +62,47 @@ suite('Gateway configuration', () => {
 				command: 'existing-server',
 			});
 			assert.equal('syntaxxed-gateway' in claudeConfig.mcpServers, false);
+		} finally {
+			await rm(workspaceRoot, { recursive: true, force: true });
+		}
+	});
+
+	test('keeps generated MCP files out of git without touching .gitignore', async () => {
+		const workspaceRoot = await mkdtemp(
+			path.join(tmpdir(), 'syntaxxed-gateway-exclude-test-')
+		);
+
+		try {
+			await mkdir(path.join(workspaceRoot, '.git', 'info'), {
+				recursive: true,
+			});
+			await writeFile(
+				path.join(workspaceRoot, '.git', 'info', 'exclude'),
+				'*.log',
+				'utf8'
+			);
+
+			const registration = {
+				url: 'http://127.0.0.1:43123/mcp',
+				authorizationHeader: 'Bearer test-token',
+			};
+			await ensureMcpRegistrations(workspaceRoot, registration);
+			await ensureMcpRegistrations(workspaceRoot, {
+				...registration,
+				authorizationHeader: 'Bearer rotated-token',
+			});
+
+			const exclude = await readFile(
+				path.join(workspaceRoot, '.git', 'info', 'exclude'),
+				'utf8'
+			);
+			const lines = exclude.split('\n');
+			assert.equal(lines[0], '*.log');
+			assert.equal(lines.filter((line) => line === '/.mcp.json').length, 1);
+			assert.equal(
+				lines.filter((line) => line === '/.cursor/mcp.json').length,
+				1
+			);
 		} finally {
 			await rm(workspaceRoot, { recursive: true, force: true });
 		}

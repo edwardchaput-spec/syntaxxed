@@ -6,7 +6,7 @@ inputs:
   detail:
     description: 'Context detail: outline, logic, source'
     required: false
-    default: 'logic'
+    default: 'outline'
   intent:
     description: 'Optional task focus used to select relevant files'
     required: false

@@ -9,7 +9,7 @@
     "type": "git",
     "url": "https://github.com/edwardchaput-spec/syntaxxed.git"
   },
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "version": "0.3.0",
   "preview": true,
   "pricing": "Free",
@@ -250,7 +250,6 @@
     "package": "webpack --mode production",
     "package:cli": "webpack --mode production --config-name cli",
     "package:vsix": "vsce package --allow-missing-repository --no-rewrite-relative-links",
-    "docs:funding-html": "node scripts/render-funding-plan-html.mjs",
     "cli": "node ./dist/cli/index.js",
     "typecheck": "tsc -p . --noEmit && tsc -p tsconfig.cli.json --noEmit",
     "compile-tests": "tsc -p . --outDir out",

@@ -4,6 +4,30 @@ All notable changes to the extension are documented in this file.
 
 ## Unreleased
 
+### Changed
+
+- Licensed under the PolyForm Noncommercial License 1.0.0: free for personal,
+  non-commercial use; commercial use requires a separate licence.
+- Outline is now the default context detail in the sidebar, CLI and GitHub
+  Action, because it gives the largest reduction (about 75% on a typical
+  TypeScript project). Logic and Source are still available.
+- The payload envelope no longer tells agents not to search the codebase; it
+  now asks them to prefer the supplied context and say what is missing.
+- New Marketplace icon.
+- Shorter README; the full guide moved to `docs/reference.md`.
+- The session cost figure is now labelled as an estimate against sending the
+  full selected files.
+
+### Fixed
+
+- Secret redaction no longer corrupts ordinary code such as
+  `const apiKey = getConfig(` or `this.authToken = options.authToken`.
+- Task focus ignores filler words, so "in" no longer matches `index.ts`.
+- Enabling the MCP gateway adds the generated `.mcp.json` and
+  `.cursor/mcp.json`, which contain a local bearer credential, to the
+  repository's local `.git/info/exclude` so they are not committed by
+  accident.
+
 ## 0.3.0 - 2026-08-07
 
 ### Added

@@ -99,6 +99,7 @@ export {
 export {
 	MCP_SERVER_NAME,
 	ensureMcpRegistrations,
+	excludeMcpRegistrationsFromGit,
 	removeMcpRegistrations,
 	type McpHttpRegistration,
 	type McpRegistrationResult,

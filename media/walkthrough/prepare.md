@@ -1,6 +1,6 @@
 Choose the context detail that matches the task:
 
-- **Outline** exposes declarations, types, signatures, and structure for
+- **Outline** (the default) exposes declarations, types, signatures, and structure for
   supported JavaScript and TypeScript while removing implementation bodies.
 - **Logic** keeps implementation logic but removes parser-recognized comments
   and excess formatting.
