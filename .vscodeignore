@@ -13,6 +13,7 @@ dist/cli/**
 docs/enterprise-roadmap.md
 docs/telemetry.md
 .gitignore
+.gitleaks.toml
 .yarnrc
 webpack.config.js
 **/tsconfig.json
