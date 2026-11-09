@@ -6,6 +6,12 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Must match engines.vscode; vsce refuses to package when newer.
+      - dependency-name: "@types/vscode"
+      # Wait until typescript-eslint supports the next TypeScript major.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
