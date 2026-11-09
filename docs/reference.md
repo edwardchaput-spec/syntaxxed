@@ -9,7 +9,7 @@ the Syntaxxed interface and file requests made through the Syntaxxed MCP Gateway
 
 ## What is included
 
-The 0.3.0 public preview includes:
+The 0.4.0 public preview includes:
 
 - A VS Code Activity Bar view for scanning eligible workspace files.
 - Manual file inclusion and exclusion before context is built.
@@ -119,7 +119,7 @@ symlink, ignore, and file-size boundaries.
 
 ### Install a downloaded VSIX
 
-1. Download `syntaxxed-0.3.0.vsix` from the release assets.
+1. Download `syntaxxed-0.4.0.vsix` from the release assets.
 2. Open VS Code.
 3. Open **Extensions**.
 4. Select the **...** menu.
@@ -132,7 +132,7 @@ symlink, ignore, and file-size boundaries.
 PowerShell installation:
 
 ```powershell
-code --install-extension ".\syntaxxed-0.3.0.vsix" --force
+code --install-extension ".\syntaxxed-0.4.0.vsix" --force
 ```
 
 Verify the installed extension identity:
@@ -141,14 +141,14 @@ Verify the installed extension identity:
 code --list-extensions --show-versions | Select-String "syntaxxed.syntaxxed"
 ```
 
-The expected result includes `syntaxxed.syntaxxed@0.3.0`.
+The expected result includes `syntaxxed.syntaxxed@0.4.0`.
 
 ### Build and install from source
 
 ```powershell
 npm ci
 npm run verify:release
-code --install-extension ".\syntaxxed-0.3.0.vsix" --force
+code --install-extension ".\syntaxxed-0.4.0.vsix" --force
 ```
 
 Use `npm.cmd` instead of `npm` when local PowerShell execution policy blocks
@@ -294,7 +294,7 @@ may include:
 - a content-free rejection reason.
 
 Audit events do not contain file contents, prompts, credentials, or redacted
-secret values. Version 0.3.0 keeps them only in the current VS Code output
+secret values. Version 0.4.0 keeps them only in the current VS Code output
 session; durable enterprise audit storage remains roadmap work.
 
 ### Disable the gateway
@@ -322,7 +322,7 @@ Disable again, or remove only the `syntaxxed-gateway` entry manually.
 - Secret redaction on every successful file response.
 - Content-free local audit events.
 
-### Not enforced by version 0.3.0
+### Not enforced by version 0.4.0
 
 - Syntaxxed cannot disable another extension or agent's native filesystem,
   terminal, network, search, or indexing tools.

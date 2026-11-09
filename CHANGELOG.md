@@ -2,7 +2,7 @@
 
 All notable changes to the extension are documented in this file.
 
-## Unreleased
+## 0.4.0 - 2026-11-09
 
 ### Added
 
@@ -15,6 +15,10 @@ All notable changes to the extension are documented in this file.
 - `.mts` and `.cts` files are now parsed as TypeScript.
 - Python virtual environments and tool caches (`.venv`, `venv`,
   `site-packages`, `.tox`, `.nox`, `.ruff_cache`) are always skipped.
+
+## 0.3.0 public release - 2026-11-09
+
+First public GitHub release.
 
 ### Changed
 

@@ -14,7 +14,7 @@ Streamable HTTP MCP servers.
 ## Requirements
 
 - VS Code 1.105.0 or newer.
-- `syntaxxed-0.3.0.vsix`.
+- `syntaxxed-0.4.0.vsix`.
 - A filesystem-backed project folder.
 - Workspace Trust for gateway and configuration changes.
 - An AI coding client of your choice.
@@ -27,13 +27,13 @@ In VS Code:
 1. Open **Extensions**.
 2. Select the **...** menu.
 3. Select **Install from VSIX...**.
-4. Choose `syntaxxed-0.3.0.vsix`.
+4. Choose `syntaxxed-0.4.0.vsix`.
 5. Reload the VS Code window if prompted.
 
 PowerShell alternative:
 
 ```powershell
-code --install-extension "C:\path\to\syntaxxed-0.3.0.vsix" --force
+code --install-extension "C:\path\to\syntaxxed-0.4.0.vsix" --force
 ```
 
 Verify:
@@ -42,7 +42,7 @@ Verify:
 code --list-extensions --show-versions | Select-String "syntaxxed.syntaxxed"
 ```
 
-The expected output includes `syntaxxed.syntaxxed@0.3.0`.
+The expected output includes `syntaxxed.syntaxxed@0.4.0`.
 
 ## 2. Open the target project
 
@@ -171,7 +171,7 @@ Open **View -> Output -> Syntaxxed Gateway** to inspect local JSON audit events.
 Events describe lifecycle and access decisions without recording source content,
 prompts, credentials, or redacted secret values.
 
-Version 0.3.0 audit events last only for the current output session. Durable,
+Version 0.4.0 audit events last only for the current output session. Durable,
 signed, centrally retained enterprise audit evidence is roadmap work.
 
 ## 8. Disable the gateway

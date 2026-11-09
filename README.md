@@ -54,14 +54,14 @@ from using its own file-reading tools.
 
 ## Install
 
-Download `syntaxxed-0.3.0.vsix` from the
+Download `syntaxxed-0.4.0.vsix` from the
 [releases page](https://github.com/edwardchaput-spec/syntaxxed/releases), then
 in VS Code open **Extensions**, select **...**, then **Install from VSIX...**.
 
 Or from a terminal:
 
 ```powershell
-code --install-extension .\syntaxxed-0.3.0.vsix
+code --install-extension .\syntaxxed-0.4.0.vsix
 ```
 
 Requires VS Code 1.105 or newer.
